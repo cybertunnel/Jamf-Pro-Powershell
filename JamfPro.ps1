@@ -53,6 +53,111 @@ function Get-Computers {
     }
 }
 
+function Get-Computer {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id,
+        [string]$serialNumber,
+        [string]$user
+    )
+
+    if ($null -ne $id) {
+        #Obtain record using inventory details
+    } else {
+        #Obtain record using inventory with all the sections
+    }
+}
+
+function Get-Computer-Prestages {
+    Param(
+        [string]$server = $env:JamfProURL
+    )
+
+    # Get Computer Prestages
+}
+
+function Get-Computer-Prestage {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id,
+        [string]$name
+    )
+
+    # Get Computer Prestage details
+}
+
+function Get-Computer-Prestages-Scope {
+    Param(
+        [string]$server = $env:JamfProURL
+    )
+}
+
+function Get-Computer-Prestage-Scope {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id
+    )
+}
+
+function Get-Departments {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [string]$name,
+        [int]$id
+    )
+}
+
+function Get-Department {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id
+    )
+}
+
+function Get-Enrollment-Customizations {
+    Param(
+        [string]$server = $env:JamfProURL
+    )
+}
+
+function Get-Enrollment-Customization {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id
+    )
+}
+
+function Get-Inventory-Preloads {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [switch]$csv,
+        [switch]$csvTemplate,
+        [switch]$eaColumns
+    )
+}
+
+function Get-Inventory-Preload {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id
+    )
+}
+
+function Get-Scripts {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id,
+        [string]$name
+    )
+}
+
+function Get-Script {
+    Param(
+        [string]$server = $env:JamfProURL,
+        [int]$id
+    )
+}
+
 function isURI($address) {
     ($null -ne $address -as [System.URI])
 }
