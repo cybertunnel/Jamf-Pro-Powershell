@@ -57,7 +57,7 @@ Description = 'Powershell Module that handles authentication and data processing
 # RequiredAssemblies = @()
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-# ScriptsToProcess = @()
+ScriptsToProcess = @('./Classes/ComputerGroup.ps1', './Classes/Criterion.ps1', './Classes/Site.ps1', './Classes/Computer.ps1')
 
 # Type files (.ps1xml) to be loaded when importing this module
 # TypesToProcess = @()
@@ -69,7 +69,7 @@ Description = 'Powershell Module that handles authentication and data processing
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('New-Token', 'Get-Computers')
+FunctionsToExport = @('New-Token', 'Get-Groups', 'Get-Group')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
