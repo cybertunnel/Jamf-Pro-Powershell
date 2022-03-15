@@ -65,8 +65,7 @@ function Get-Group
     {
         Throw "Group type not specified, one of -Computer, -User, or -Mobile flags must be used to specify which groups you want to pull."
     }
-
-    Write-Host "Attempting to reach $URI"
+    
     $response = Invoke-RestMethod $URI -Method Get -Authentication Basic -Credential $Credential -ContentType 'application/xml;charset=UTF-8'
 
     return $response
