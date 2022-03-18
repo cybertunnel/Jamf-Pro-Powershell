@@ -34,5 +34,5 @@ function Get-Groups
     Write-Host "Attempting to call on $URI"
     $response = Invoke-RestMethod $URI -Method Get -Authentication Basic -Credential $Credential -ContentType 'application/xml;charset=UTF-8'
 
-    return $response
+    return $response.computer_groups
 }
