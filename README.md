@@ -69,9 +69,9 @@ Delete-Token -Server "https://acme.jamfcloud.com" -Token $token.token
     - [x] Delete Token
 - [ ] Computer Groups
     - [x] Get Computer Groups
-    - [ ] Delete Computer Groups
-    - [ ] Create Computer Groups
-    - [ ] Update Computer Groups
+    - [x] Delete Computer Groups
+    - [x] Create Computer Groups
+    - [x] Update Computer Groups
 - [ ] Policies
     - [ ] Get Policies
     - [ ] Update Policy Scoping
