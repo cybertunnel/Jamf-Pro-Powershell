@@ -45,7 +45,18 @@ Make sure you review the [Usage](#usage) section of this README for example uses
 <!-- USAGE -->
 ## Usage
 
-Usage will be coming soon...
+### Authentication Lifecycle
+
+```Powershell
+# Gets Token
+$token = New-Token -Server "https://acme.jamfcloud.com"
+
+# Renew Token
+$token = Update-Token -Server "https://acme.jamfcloud.com" -Token $token.token
+
+# Invalidate Token
+Delete-Token -Server "https://acme.jamfcloud.com" -Token $token.token
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
