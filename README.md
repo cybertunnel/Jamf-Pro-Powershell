@@ -52,9 +52,9 @@ Usage will be coming soon...
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Token Authentication
+- [x] Token Authentication
     - [x] New Token
-    - [ ] Refresh Token
+    - [x] Refresh Token
     - [x] Delete Token
 - [ ] Computer Groups
     - [x] Get Computer Groups
