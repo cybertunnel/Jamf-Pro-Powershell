@@ -53,9 +53,9 @@ Usage will be coming soon...
 ## Roadmap
 
 - [ ] Token Authentication
-    - [ ] New Token
+    - [x] New Token
     - [ ] Refresh Token
-    - [ ] Delete Token
+    - [x] Delete Token
 - [ ] Computer Groups
     - [ ] Get Computer Groups
     - [ ] Delete Computer Groups
