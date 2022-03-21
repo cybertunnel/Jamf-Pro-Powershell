@@ -57,7 +57,7 @@ Usage will be coming soon...
     - [ ] Refresh Token
     - [x] Delete Token
 - [ ] Computer Groups
-    - [ ] Get Computer Groups
+    - [x] Get Computer Groups
     - [ ] Delete Computer Groups
     - [ ] Create Computer Groups
     - [ ] Update Computer Groups
