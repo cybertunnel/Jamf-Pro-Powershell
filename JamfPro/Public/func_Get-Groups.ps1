@@ -3,50 +3,54 @@ function Get-Groups
     Param(
         [Parameter(Position = 0, Mandatory = $true)][String]$Server,
         [Parameter(Position = 1, Mandatory = $false)][switch]$Computer,
-        [Parameter(Position = 2, Mandatory = $false)][switch]$User,
-        [Parameter(Position = 3, Mandatory = $false)][switch]$Mobile,
-        [Parameter(Position = 4, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 5, Mandatory = $false)][switch]$refresh
+        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
+        [Parameter(Position = 3, Mandatory = $false)][switch]$Refresh,
+        [Parameter(Position = 4, Mandatory = $false)][String]$Token
     )
 
-    if ($Computer)
+    if (-not $Computer)
     {
-        $storedData = $global:ComputerGroups | Where-Object {$_.Server -eq $Server} | Select-Object "data"
+        throw "A group type flag must be provided. Supported groups: `"-Computer`"."
     }
 
-    if ((-not $null -eq $storedData) -and (-not $refresh))
+    # Check for stored results
+    $storedData = $global:ComputerGroups | Where-Object {$_.Server -eq $Server} | Select-Object "data"
+    if ((-not $null -eq $storedData) -and (-not $refresh) -and ($Computer))
     {
+        # Return stored computer group data
         return $storedData.data
     }
 
-    if ($null -eq $Credential)
+    if (($null -eq $Credential) -and ($null -eq $Token))
     {
-        # Prompt for credentials if none are provided
+        # Prompt for credentials if none were provided
         $Credential = Get-Credential
     }
 
+    # Generate the URI
     if ($Computer)
     {
         $URI = "$Server/JSSResource/computergroups"
     }
-    elseif ($User)
+
+    Write-Host "Attempting to grab groups data from $Server using URI $URI"
+
+    if ($null -eq $Token)
     {
-        $URI = "$Server/JSSResource/mobiledevicegroups"
-    }
-    elseif ($Mobile)
-    {
-        $URI = "$Server/JSSResource/usergroups"
+        $headers = @{"Accept" = "application/json"}
+        $response = Invoke-RestMethod $URI -Method Get -Headers $headers -Credential $Credential -Authentication Basic
     }
     else
     {
-        Throw "Group type not specified, one of -Computer, -User, or -Mobile flags must be used to specify which groups you want to pull."
+        $headers = @{"Accept" = "application/json"
+            "Authorization" = "Bearer $Token"
+        }
+        $response = Invoke-RestMethod $URI -Method Get -Headers $headers
     }
-
-    Write-Host "Attempting to call on $URI"
-    $response = Invoke-RestMethod $URI -Method Get -Authentication Basic -Credential $Credential -ContentType 'application/xml;charset=UTF-8'
 
     $global:ComputerGroups = @{"Server" = $Server
     "data" = $response.computer_groups
     }
+
     return $response.computer_groups
 }

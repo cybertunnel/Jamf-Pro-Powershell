@@ -1,72 +1,54 @@
 function Get-Group
 {
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $false)][String]$Id,
-        [Parameter(Position = 2, Mandatory = $false)][String]$Name,
-        [Parameter(Position = 3, Mandatory = $false)][switch]$Computer,
-        [Parameter(Position = 4, Mandatory = $false)][switch]$User,
-        [Parameter(Position = 5, Mandatory = $false)][switch]$Mobile,
-        [Parameter(Position = 6, Mandatory = $false)][pscredential]$Credential
+        [Parameter(Position = 4, Mandatory = $true)][String]$Server,
+        [Parameter(Position = 1, Mandatory = $false)][switch]$Computer,
+        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
+        [Parameter(Position = 3, Mandatory = $false)][String]$Token,
+        [Parameter(Position = 0, Mandatory = $false)][String]$Id,
+        [Parameter(Position = 0, Mandatory = $false)][String]$Name
     )
 
-    if ($null -eq $Credential)
+    if (-not $Computer)
     {
-        # Prompt for credentials if none are provided
+        throw "A group type flag must be provided. Supported groups: `"-Computer`"."
+    }
+
+    if ($null -eq $Id -and $null -eq $Name)
+    {
+        throw "An `"-Id`" or `"-Name`" must be provided."
+    }
+
+    if (($null -eq $Credential) -and ($null -eq $Token))
+    {
+        # Prompt for credentials if none were provided
         $Credential = Get-Credential
     }
 
+    # Generate the URI
     if ($Computer)
     {
-        if (-not [String]::IsNullOrEmpty($Id))
+        if (-not $null -eq $Id)
         {
             $URI = "$Server/JSSResource/computergroups/id/$Id"
         }
-        elseif (-not [String]::IsNullOrEmpty($Name))
-        {
+        elseif (-not $null -eq $Name) {
             $URI = "$Server/JSSResource/computergroups/name/$Name"
         }
-        else
-        {
-            Throw "Either a -Name or a -Id must be provided for the specific group you wish to pull"
-        }
     }
-    elseif ($User)
+
+    if ($null -eq $Token)
     {
-        if (-not [String]::IsNullOrEmpty($Id))
-        {
-            $URI = "$Server/JSSResource/mobiledevicegroups/id/$Id"
-        }
-        elseif (-not [String]::IsNullOrEmpty($Name))
-        {
-            $URI = "$Server/JSSResource/mobiledevicegroups/name/$Name"
-        }
-        else
-        {
-            Throw "Either a -Name or a -Id must be provided for the specific group you wish to pull"
-        }
-    }
-    elseif ($Mobile)
-    {
-        if (-not [String]::IsNullOrEmpty($Id))
-        {
-            $URI = "$Server/JSSResource/usergroups/id/$Id"
-        }
-        elseif (-not [String]::IsNullOrEmpty($Name))
-        {
-            $URI = "$Server/JSSResource/usergroups/name/$Name"
-        }
-        else
-        {
-            Throw "Either a -Name or a -Id must be provided for the specific group you wish to pull"
-        }   
+        $headers = @{"Accept" = "application/json"}
+        $response = Invoke-RestMethod $URI -Method Get -Headers $headers -Credential $Credential -Authentication Basic
     }
     else
     {
-        Throw "Group type not specified, one of -Computer, -User, or -Mobile flags must be used to specify which groups you want to pull."
+        $headers = @{"Accept" = "application/json"
+            "Authorization" = "Bearer $Token"
+        }
+        $response = Invoke-RestMethod $URI -Method Get -Headers $headers
     }
-    
-    $response = Invoke-RestMethod $URI -Method Get -Authentication Basic -Credential $Credential -ContentType 'application/xml;charset=UTF-8'
 
-    return $response
+    return $response.computer_group
 }
