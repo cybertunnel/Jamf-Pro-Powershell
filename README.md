@@ -102,7 +102,7 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [x] Create Computer Groups
     - [x] Update Computer Groups
 - [ ] Policies
-    - [ ] Get Policies
+    - [x] Get Policies
     - [ ] Update Policy Scoping
     - [ ] Delete Policies
 
