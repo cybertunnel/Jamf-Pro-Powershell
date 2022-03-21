@@ -15,7 +15,7 @@ function Get-Groups
 
     # Check for stored results
     $storedData = $global:ComputerGroups | Where-Object {$_.Server -eq $Server} | Select-Object "data"
-    if ((-not $null -eq $storedData) -and (-not $refresh) -and ($Computer))
+    if ((-not $null -eq $storedData) -and (-not $Refresh) -and ($Computer))
     {
         # Return stored computer group data
         return $storedData.data
