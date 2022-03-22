@@ -105,6 +105,35 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [x] Get Policies
     - [ ] Update Policy Scoping
     - [ ] Delete Policies
+- [ ] Packages
+    - [ ] Get Packages
+    - [ ] Delete Packages
+    - [ ] Update Packages
+- [ ] Sites
+    - [ ] Get Sites
+    - [ ] Create Sites
+    - [ ] Update Sites
+    - [ ] Delete Sites
+- [ ] Advanced Computer Searches
+    - [ ] Get Advanced Computer Searches
+    - [ ] Update Advanced Computer Searches
+    - [ ] Delete Advanced Computer Searches
+    - [ ] Create Advanced Computer Searches
+- [ ] Computer Extension Attributes
+    - [ ] Get Extension Attributes
+    - [ ] Create Extension Attributes
+    - [ ] Delete Extension Attributes
+    - [ ] Update Extension Attributes
+- [ ] Scripts
+    - [ ] Get Scripts
+    - [ ] Create Scripts
+    - [ ] Delete Scripts
+    - [ ] Update Scripts
+- [ ] Computer Pre-Stages
+    - [ ] Get Computer Pre-Stages
+    - [ ] Create Computer Pre-Stages
+    - [ ] Delete Computer Pre-Stages
+    - [ ] Update Computer Pre-Stages
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
