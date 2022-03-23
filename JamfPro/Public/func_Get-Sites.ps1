@@ -6,7 +6,7 @@ function Get-Sites
         [Parameter(Position = 6, Mandatory = $false)][String]$Token
     )
 
-    if ($null -eq $Credential)
+    if ($null -eq $Credential -and $null -eq $Token)
     {
         # Prompt for credentials if none are provided
         $Credential = Get-Credential
