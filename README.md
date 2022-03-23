@@ -134,11 +134,11 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Create Computer Pre-Stages
     - [x] Delete Computer Pre-Stages
     - [x] Update Computer Pre-Stages
-- [ ] Buildings
-    - [ ] Get Buildings
-    - [ ] Create Buildings
-    - [ ] Delete Buildings
-    - [ ] Update Buildings
+- [x] Buildings
+    - [x] Get Buildings
+    - [x] Create Buildings
+    - [x] Delete Buildings
+    - [x] Update Buildings
 - [ ] Categories
     - [ ] Get Categories
     - [ ] Create Categories
