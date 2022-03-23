@@ -120,9 +120,9 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Delete Advanced Computer Searches
     - [ ] Create Advanced Computer Searches
 - [ ] Computer Extension Attributes
-    - [ ] Get Extension Attributes
+    - [x] Get Extension Attributes
     - [ ] Create Extension Attributes
-    - [ ] Delete Extension Attributes
+    - [x] Delete Extension Attributes
     - [ ] Update Extension Attributes
 - [ ] Scripts
     - [ ] Get Scripts
