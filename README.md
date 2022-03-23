@@ -130,10 +130,10 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Delete Scripts
     - [ ] Update Scripts
 - [ ] Computer Pre-Stages
-    - [ ] Get Computer Pre-Stages
+    - [x] Get Computer Pre-Stages
     - [ ] Create Computer Pre-Stages
-    - [ ] Delete Computer Pre-Stages
-    - [ ] Update Computer Pre-Stages
+    - [x] Delete Computer Pre-Stages
+    - [x] Update Computer Pre-Stages
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
