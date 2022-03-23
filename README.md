@@ -134,6 +134,31 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Create Computer Pre-Stages
     - [x] Delete Computer Pre-Stages
     - [x] Update Computer Pre-Stages
+- [ ] Buildings
+    - [ ] Get Buildings
+    - [ ] Create Buildings
+    - [ ] Delete Buildings
+    - [ ] Update Buildings
+- [ ] Categories
+    - [ ] Get Categories
+    - [ ] Create Categories
+    - [ ] Delete Categories
+    - [ ] Update Categories
+- [ ] Computers
+    - [ ] Get Computers
+    - [ ] Update Computers
+    - [ ] Delete Computers
+- [ ] Departments
+    - [ ] Get Departments
+    - [ ] Update Departments
+    - [ ] Delete Departments
+    - [ ] Create Departments
+- [ ] Inventory Preload
+    - [ ] Get Inventory Preload
+    - [ ] Update Inventory Preload
+    - [ ] Delete Inventory Preload
+    - [ ] Create Inventory Preload
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
