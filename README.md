@@ -109,11 +109,11 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Get Packages
     - [ ] Delete Packages
     - [ ] Update Packages
-- [ ] Sites
-    - [ ] Get Sites
-    - [ ] Create Sites
-    - [ ] Update Sites
-    - [ ] Delete Sites
+- [x] Sites
+    - [x] Get Sites
+    - [x] Create Sites
+    - [x] Update Sites
+    - [x] Delete Sites
 - [ ] Advanced Computer Searches
     - [ ] Get Advanced Computer Searches
     - [ ] Update Advanced Computer Searches
