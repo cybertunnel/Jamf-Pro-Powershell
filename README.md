@@ -96,7 +96,7 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [x] New Token
     - [x] Refresh Token
     - [x] Delete Token
-- [ ] Computer Groups
+- [x] Computer Groups
     - [x] Get Computer Groups
     - [x] Delete Computer Groups
     - [x] Create Computer Groups
@@ -105,10 +105,10 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [x] Get Policies
     - [ ] Update Policy Scoping
     - [ ] Delete Policies
-- [ ] Packages
-    - [ ] Get Packages
-    - [ ] Delete Packages
-    - [ ] Update Packages
+- [x] Packages
+    - [x] Get Packages
+    - [x] Delete Packages
+    - [x] Update Packages
 - [x] Sites
     - [x] Get Sites
     - [x] Create Sites
