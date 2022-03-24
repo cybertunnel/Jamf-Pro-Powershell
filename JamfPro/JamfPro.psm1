@@ -32,3 +32,7 @@ Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\PreStage
 Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\Building\*" -Filter 'func_*.ps1' -Recurse | ForEach-Object { 
     Export-ModuleMember -Function ($_.BaseName -Split "_")[1] 
     }
+
+Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\Package\*" -Filter 'func_*.ps1' -Recurse | ForEach-Object { 
+    Export-ModuleMember -Function ($_.BaseName -Split "_")[1] 
+    }
