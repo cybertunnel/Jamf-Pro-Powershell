@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-categories-id
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-categories-id-history
 function Get-Category
 {
     Param(

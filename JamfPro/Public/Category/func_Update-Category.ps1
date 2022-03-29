@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/put_v1-categories-id
+# - https://developer.jamf.com/jamf-pro/reference/post_v1-categories-id-history
 function Update-Category
 {
     Param(

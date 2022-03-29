@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - Delete multiple: https://developer.jamf.com/jamf-pro/reference/post_v1-categories-delete-multiple
+# - Delete single: https://developer.jamf.com/jamf-pro/reference/delete_v1-categories-id
 function Remove-Category
 {
     Param(
