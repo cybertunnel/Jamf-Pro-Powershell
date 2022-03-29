@@ -124,11 +124,11 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Create Extension Attributes
     - [x] Delete Extension Attributes
     - [ ] Update Extension Attributes
-- [ ] Scripts
-    - [ ] Get Scripts
-    - [ ] Create Scripts
-    - [ ] Delete Scripts
-    - [ ] Update Scripts
+- [x] Scripts
+    - [x] Get Scripts
+    - [x] Create Scripts
+    - [x] Delete Scripts
+    - [x] Update Scripts
 - [ ] Computer Pre-Stages
     - [x] Get Computer Pre-Stages
     - [ ] Create Computer Pre-Stages
