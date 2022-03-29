@@ -3,7 +3,7 @@ function Get-Categories
     Param(
         [Parameter(Position = 0, Mandatory = $true)][String]$Server,
         [Parameter(Position = 1, Mandatory = $true)][String]$Token,
-        [Parameter(Position = 1, Mandatory = $true)][Int]$Page
+        [Parameter(Position = 1, Mandatory = $false)][Int]$Page
     )
 
     $URI = "$Server/api/v1/categories"
