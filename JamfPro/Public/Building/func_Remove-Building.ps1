@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - Delete multiple: https://developer.jamf.com/jamf-pro/reference/post_v1-buildings-delete-multiple
+# - Delete single: https://developer.jamf.com/jamf-pro/reference/delete_v1-buildings-id
 function Remove-Building
 {
     Param(

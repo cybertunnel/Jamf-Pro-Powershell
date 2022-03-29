@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-buildings-id
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-buildings-id-history
 function Get-Building
 {
     Param(

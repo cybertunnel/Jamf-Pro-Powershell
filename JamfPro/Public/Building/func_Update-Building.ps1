@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/put_v1-buildings-id
+# - https://developer.jamf.com/jamf-pro/reference/post_v1-buildings-id-history
 function Update-Building
 {
     Param(

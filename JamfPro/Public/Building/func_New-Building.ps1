@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/post_v1-buildings
 function New-Building
 {
     Param(
