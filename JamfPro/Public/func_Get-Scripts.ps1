@@ -1,4 +1,4 @@
-function Get-Categories
+function Get-Scripts
 {
     Param(
         [Parameter(Position = 0, Mandatory = $true)][String]$Server,
