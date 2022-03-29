@@ -1,3 +1,10 @@
+# Documentation Reference:
+# - Computer EA by ID: https://developer.jamf.com/jamf-pro/reference/findcomputerextensionattributesbyid
+# - Computer EA by Name: https://developer.jamf.com/jamf-pro/reference/findcomputerextensionattributesbyname
+# - Mobile EA by ID: https://developer.jamf.com/jamf-pro/reference/findmobiledeviceextensionattributesbyid
+# - Mobile EA by Name: https://developer.jamf.com/jamf-pro/reference/findmobiledeviceextensionattributesbyname
+# - User EA by ID: https://developer.jamf.com/jamf-pro/reference/finduserextensionattributesbyid
+# - User EA by Name: https://developer.jamf.com/jamf-pro/reference/finduserextensionattributesbyname
 function Get-ExtensionAttribute
 {
     Param(

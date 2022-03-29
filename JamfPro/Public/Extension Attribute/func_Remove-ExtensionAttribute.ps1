@@ -1,3 +1,10 @@
+# Documentation Reference:
+# - Computer EA by ID: https://developer.jamf.com/jamf-pro/reference/deletecomputerextensionattributebyid
+# - Computer EA by Name: https://developer.jamf.com/jamf-pro/reference/deletecomputerextensionattributebyname
+# - Mobile EA by ID: https://developer.jamf.com/jamf-pro/reference/deletemobiledeviceextensionattributebyid
+# - Mobile EA by Name: https://developer.jamf.com/jamf-pro/reference/deletemobiledeviceextensionattributebyname
+# - User EA by ID: https://developer.jamf.com/jamf-pro/reference/deleteuserextensionattributebyid
+# - User EA by Name: https://developer.jamf.com/jamf-pro/reference/deleteuserextensionattributebyname
 function Remove-ExtensionAttribute
 {
     Param(

@@ -1,3 +1,7 @@
+# Documentation Reference:
+# - Computer EAs: https://developer.jamf.com/jamf-pro/reference/findcomputerextensionattributes
+# - Mobile EAs: https://developer.jamf.com/jamf-pro/reference/findmobiledeviceextensionattributes
+# - User EAs: https://developer.jamf.com/jamf-pro/reference/finduserextensionattributes
 function Get-ExtensionAttributes
 {
     Param(
