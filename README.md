@@ -167,6 +167,8 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
 
 This project is a product of love for the Jamf Pro's APIs and the desire to make interactions simple. This project attempts to follow Microsoft's [documentation](https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2) for naming conventions.
 
+Additionally, please review Jamf's [Jamf Pro API Documentation](https://developer.jamf.com/jamf-pro/reference/)
+
 If you want to add to this project, please fork this repo and submit a pull request with the appropriate tagging.
 
 1. Fork the Project
