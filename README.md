@@ -139,11 +139,11 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [x] Create Buildings
     - [x] Delete Buildings
     - [x] Update Buildings
-- [ ] Categories
-    - [ ] Get Categories
-    - [ ] Create Categories
-    - [ ] Delete Categories
-    - [ ] Update Categories
+- [x] Categories
+    - [x] Get Categories
+    - [x] Create Categories
+    - [x] Delete Categories
+    - [x] Update Categories
 - [ ] Computers
     - [ ] Get Computers
     - [ ] Update Computers
