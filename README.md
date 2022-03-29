@@ -148,11 +148,11 @@ Remove-Group -Server $server -Id 102 -Token $token.token -Computer
     - [ ] Get Computers
     - [ ] Update Computers
     - [ ] Delete Computers
-- [ ] Departments
-    - [ ] Get Departments
-    - [ ] Update Departments
-    - [ ] Delete Departments
-    - [ ] Create Departments
+- [x] Departments
+    - [x] Get Departments
+    - [x] Update Departments
+    - [x] Delete Departments
+    - [x] Create Departments
 - [ ] Inventory Preload
     - [ ] Get Inventory Preload
     - [ ] Update Inventory Preload
