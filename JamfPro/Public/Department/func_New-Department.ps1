@@ -1,4 +1,4 @@
-function Get-Department
+function New-Department
 {
     Param(
         [Parameter(Position = 0, Mandatory = $true)][String]$Server,
@@ -17,6 +17,6 @@ function Get-Department
     $Headers = @{"Authorization" = "Bearer $Token"}
     $response = Invoke-RestMethod $URI -Headers $Headers -Method Post -Body $Body -ContentType 'application/json'
 
-    $response = Get-Category -Server $Server -Token $token -Id $response.id
+    $response = Get-Department -Server $Server -Token $token -Id $response.id
     return $response
 }
