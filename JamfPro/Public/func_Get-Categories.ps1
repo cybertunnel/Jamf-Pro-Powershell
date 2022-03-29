@@ -8,6 +8,11 @@ function Get-Categories
 
     $URI = "$Server/api/v1/categories"
 
+    if (-not $null -eq $Page)
+    {
+        $URI += "?page=$Page"
+    }
+
     $Headers = @{"Authorization" = "Bearer $Token"}
     
     $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
