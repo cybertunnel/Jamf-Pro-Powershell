@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/findpackages
 function Get-Packages
 {
     Param(

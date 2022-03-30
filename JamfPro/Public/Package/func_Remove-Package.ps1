@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/deletepackagebyid
+# - by Name: https://developer.jamf.com/jamf-pro/reference/deletepackagebyname
 function Remove-Building
 {
     Param(

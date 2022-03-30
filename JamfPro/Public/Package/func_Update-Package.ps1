@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/updatepackagebyid
+# - by Name: https://developer.jamf.com/jamf-pro/reference/updatepackagebyname
 function Update-Building
 {
     Param(
