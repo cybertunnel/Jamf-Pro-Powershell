@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/updatesitebyid
+# - by Name: https://developer.jamf.com/jamf-pro/reference/updatesitebyname
 function Update-Site
 {
     Param(

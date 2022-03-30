@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/deletesitebyid
+# - by Name: https://developer.jamf.com/jamf-pro/reference/deletesitebyname
 function Remove-Site
 {
     Param(
