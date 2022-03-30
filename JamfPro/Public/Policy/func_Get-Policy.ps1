@@ -1,3 +1,8 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/findpoliciesbyid
+# - by Name: https://developer.jamf.com/jamf-pro/reference/findpoliciesbyname
+# - Subset: https://developer.jamf.com/jamf-pro/reference/findpoliciesbyidsubset
+# - Subset by Name: https://developer.jamf.com/jamf-pro/reference/findpoliciesbynamesubset
 function Get-Policy
 {
     Param(

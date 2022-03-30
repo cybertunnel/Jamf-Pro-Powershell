@@ -1,3 +1,7 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/findpolicies
+# - by Category: https://developer.jamf.com/jamf-pro/reference/findpoliciesbycategory
+# - by Type: https://developer.jamf.com/jamf-pro/reference/findpoliciesbytype
 function Get-Policies
 {
     Param(
