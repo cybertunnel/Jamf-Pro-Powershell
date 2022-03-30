@@ -33,7 +33,5 @@ function Update-Script
         throw 'Either a -Building or -History has to be provided.'
     }
 
-    
-
     return
 }
