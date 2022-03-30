@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - Single by ID: https://developer.jamf.com/jamf-pro/reference/delete_v1-departments-id
+# - Multiple IDs: https://developer.jamf.com/jamf-pro/reference/post_v1-departments-delete-multiple
 function Remove-Department
 {
     Param(

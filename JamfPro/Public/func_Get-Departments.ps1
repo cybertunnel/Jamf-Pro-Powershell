@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-departments
 function Get-Departments
 {
     Param(

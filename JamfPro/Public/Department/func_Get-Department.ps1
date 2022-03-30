@@ -1,3 +1,6 @@
+# Document Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-departments-id
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-departments-id-history
 function Get-Department
 {
     Param(

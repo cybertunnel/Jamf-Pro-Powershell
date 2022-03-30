@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/put_v1-departments-id
+# - https://developer.jamf.com/jamf-pro/reference/post_v1-departments-id-history
 function Update-Department
 {
     Param(
