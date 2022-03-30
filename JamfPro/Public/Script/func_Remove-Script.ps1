@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/delete_v1-scripts-id
 function Remove-Script
 {
     Param(

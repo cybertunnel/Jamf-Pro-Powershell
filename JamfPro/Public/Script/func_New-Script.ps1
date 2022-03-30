@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/post_v1-scripts
 function New-Script
 {
     # TODO: Add a `-FromFile` flag to create a script object from a file

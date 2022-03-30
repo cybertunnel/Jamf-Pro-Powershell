@@ -1,3 +1,7 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v1-scripts-id
+# - Download: https://developer.jamf.com/jamf-pro/reference/get_v1-scripts-id-download
+# - History: https://developer.jamf.com/jamf-pro/reference/get_v1-scripts-id-history
 function Get-Script
 {
     Param(

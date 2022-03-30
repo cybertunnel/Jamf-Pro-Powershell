@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/put_v1-scripts-id
+# - History: https://developer.jamf.com/jamf-pro/reference/post_v1-scripts-id-history
 function Update-Script
 {
     Param(
