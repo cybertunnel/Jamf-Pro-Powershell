@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/get_v2-computer-prestages
+# - All devices by Scope: https://developer.jamf.com/jamf-pro/reference/get_v2-computer-prestages-scope
 function Get-PreStages
 {
     Param(

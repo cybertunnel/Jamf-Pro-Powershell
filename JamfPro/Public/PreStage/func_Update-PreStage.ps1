@@ -1,3 +1,8 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/put_v2-computer-prestages-id
+# - update Scope: https://developer.jamf.com/jamf-pro/reference/put_v2-computer-prestages-id-scope
+# - Add to scope: https://developer.jamf.com/jamf-pro/reference/post_v2-computer-prestages-id-scope
+# - Remove from scope: https://developer.jamf.com/jamf-pro/reference/post_v2-computer-prestages-id-scope-delete-multiple
 function Update-PreStage
 {
     Param(

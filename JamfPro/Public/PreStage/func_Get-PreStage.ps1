@@ -1,3 +1,6 @@
+# Documentation Reference:
+# - by ID: https://developer.jamf.com/jamf-pro/reference/get_v2-computer-prestages-id
+# - Scope: https://developer.jamf.com/jamf-pro/reference/get_v2-computer-prestages-id-scope
 function Get-PreStage
 {
     Param(

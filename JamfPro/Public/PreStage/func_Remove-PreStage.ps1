@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/delete_v2-computer-prestages-id
 function Remove-PreStage
 {
     Param(
