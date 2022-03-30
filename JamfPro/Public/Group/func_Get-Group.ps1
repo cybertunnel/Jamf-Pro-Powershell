@@ -1,3 +1,10 @@
+# Documentation Reference:
+# - Computer Group by ID: https://developer.jamf.com/jamf-pro/reference/findcomputergroupsbyid
+# - Computer Group by Name: https://developer.jamf.com/jamf-pro/reference/findcomputergroupsbyname
+# - Mobile Group by ID: https://developer.jamf.com/jamf-pro/reference/findmobiledevicegroupsbyid
+# - Mobile Group by Name: https://developer.jamf.com/jamf-pro/reference/findmobiledevicegroupsbyname
+# - User Group by ID: https://developer.jamf.com/jamf-pro/reference/findusergroupsbyid
+# - User Group by Name: https://developer.jamf.com/jamf-pro/reference/findusergroupsbyname
 function Get-Group
 {
     Param(

@@ -1,3 +1,10 @@
+# Documentation Reference:
+# - Computer Group by ID: https://developer.jamf.com/jamf-pro/reference/deletecomputergroupbyid
+# - Computer Group by Name: https://developer.jamf.com/jamf-pro/reference/deletecomputergroupbyname
+# - Mobile Group by ID: https://developer.jamf.com/jamf-pro/reference/deletemobiledevicegroupbyid
+# - Mobile Group by Name: https://developer.jamf.com/jamf-pro/reference/deletemobiledevicegroupbyname
+# - User Group by ID: https://developer.jamf.com/jamf-pro/reference/deleteusergroupsbyid
+# - User Group by Name: https://developer.jamf.com/jamf-pro/reference/deleteusergroupsbyname
 function Remove-Group
 {
     Param(

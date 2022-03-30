@@ -1,3 +1,10 @@
+# Documentation Reference:
+# - Computer Group by ID: https://developer.jamf.com/jamf-pro/reference/updateusergroupsbyid
+# - Computer Group by Name: https://developer.jamf.com/jamf-pro/reference/updateusergroupsbyname
+# - Mobile Group by ID: https://developer.jamf.com/jamf-pro/reference/updatemobiledevicegroupbyid
+# - Mobile Group by Name: https://developer.jamf.com/jamf-pro/reference/updatemobiledevicegroupbyname
+# - User Group by ID: https://developer.jamf.com/jamf-pro/reference/updatecomputergroupbyid
+# - User Group by Name: https://developer.jamf.com/jamf-pro/reference/updatecomputergroupbyname
 function Update-Group
 {
     Param(

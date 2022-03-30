@@ -1,3 +1,5 @@
+# Documentation Reference:
+# - https://developer.jamf.com/jamf-pro/reference/findcomputergroups
 function Get-Groups
 {
     Param(

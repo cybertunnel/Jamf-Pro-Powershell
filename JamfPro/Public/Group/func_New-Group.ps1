@@ -1,3 +1,7 @@
+# Documentation Reference:
+# - Computer Group: https://developer.jamf.com/jamf-pro/reference/createcomputergroupbyid
+# - Mobile Group: https://developer.jamf.com/jamf-pro/reference/createmobiledevicegroupbyid
+# - User Group: https://developer.jamf.com/jamf-pro/reference/createusergroupsbyid
 function New-Group
 {
     Param(
