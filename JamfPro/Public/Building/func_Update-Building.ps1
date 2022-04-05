@@ -1,17 +1,42 @@
+############################
+# API Type: JamfPro
+# --------------------------
 # Documentation Reference:
 # - https://developer.jamf.com/jamf-pro/reference/put_v1-buildings-id
 # - https://developer.jamf.com/jamf-pro/reference/post_v1-buildings-id-history
 function Update-Building
 {
+    [CmdletBinding(DefaultParameterSetName='objectUpdate')]
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $true)][String]$Token,
-        [Parameter(Position = 1, Mandatory = $true)][Int]$Id,
-        [Parameter(Position = 1, Mandatory = $false)][String]$History,
-        [Parameter(Position = 1, Mandatory = $false)][pscustomobject]$Building
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+        [Parameter(Position = 2, Mandatory)]
+        [Int]$Id,
+        
+        [Parameter(Position = 3,
+            ParameterSetName='historyUpdate')]
+        [String]$History,
+        
+        [Parameter(Position = 3,
+            Mandatory,
+            ParameterSetName='objectUpdate')]
+        [pscustomobject]$Building
     )
 
-    $URI = "$Server/api/v1/buildings/$Id"
+    $URI_PATH = "api/v1/buildings"
+    $URI = "$Server/$URI_Path"
+    $URI += "$Id"
+
     $Headers = @{"Authorization" = "Bearer $Token"}
 
     if (-not $null -eq $History)
