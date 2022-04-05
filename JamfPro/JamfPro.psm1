@@ -52,3 +52,7 @@ Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\Script\*
 Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\Inventory Preload\*" -Filter 'func_*.ps1' -Recurse | ForEach-Object {
     Export-ModuleMember -Function ($_.BaseName -Split "_")[1]
     }
+
+Get-ChildItem "$(Split-Path $script:MyInvocation.MyCommand.Path)\Public\Configuration Profile\*" -Filter 'func_*.ps1' -Recurse | ForEach-Object {
+    Export-ModuleMember -Function ($_.BaseName -Split "_")[1]
+    }
