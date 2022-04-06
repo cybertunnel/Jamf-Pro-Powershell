@@ -41,11 +41,13 @@ function Get-Category
 
         [Parameter(Position = 3,
             ParameterSetName='page')]
+        [Parameter(ParameterSetName='all')]
         [ValidateScript({$_ -gt 0})]
         [Int]$PageSize = 100,
-
+        
         [Parameter(Position = 4,
-            ParameterSetName='page')]
+        ParameterSetName='page')]
+        [Parameter(ParameterSetName='all')]
         [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
         [String]$Filter
     )
@@ -87,7 +89,14 @@ function Get-Category
             $jobs = (0..$totalPages) | ForEach-Object {Start-ThreadJob -ArgumentList ($URI, $Token, $_, $PageSize) -ScriptBlock {
                 param($URI, $Token, $Page, $PageSize)
                 $Headers = @{"Authorization" = "Bearer $Token"}
-                return Invoke-RestMethod ($URI + "page=$Page&page-size=$PageSize") -Method Get -Headers $Headers
+                if ($URI[-1] -eq "?")
+                {
+                    return Invoke-RestMethod ($URI + "page=$Page&page-size=$PageSize") -Method Get -Headers $Headers
+                }
+                else
+                {
+                    return Invoke-RestMethod ($URI + "&page=$Page&page-size=$PageSize") -Method Get -Headers $Headers
+                }
             }}
             return $jobs | ForEach-Object {$_ | Wait-Job | Receive-Job | Select-Object -ExpandProperty results}
 
