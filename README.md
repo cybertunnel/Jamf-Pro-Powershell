@@ -58,9 +58,7 @@ $token = Update-Token -Server "https://acme.jamfcloud.com" -Token $token.token
 Delete-Token -Server "https://acme.jamfcloud.com" -Token $token.token
 ```
 
-### Groups
-
-#### Computer Groups
+### Departments
 
 ```Powershell
 $server = "https://acme.jamfcloud.com"
@@ -68,23 +66,13 @@ $server = "https://acme.jamfcloud.com"
 # Get Token
 $token = New-Token -Server $server
 
-# Get Groups - This will return ALL groups
-$groups = Get-Groups -Server $server -Computer -Token $token
+# Get All Departments
+Get-Department -All -Server $server -Token $token.token
 
-# Select just the group IDs
-$group_ids = $groups | Select -ExpandProperty id
+# Get specific department
+Get-Department -Id 12 -Server $server -Token $token.token
 
-# Get a group by ID
-$group = Get-Group -Server $server -Computer -Id $group_ids[0] -Token $token
-
-# Add criteria to a smart group
-Add-Criteria -Group $group -Name "Operating System Version" -And -SearchType "like" -Value "12.0"
-
-# Save a modified computer group
-Update-Group -Server $server -Group $group -Computer -Token $token
-
-# Delete a computer group
-Remove-Group -Server $server -Id 102 -Token $token.token -Computer
+# TODO: Add filter examplex
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
