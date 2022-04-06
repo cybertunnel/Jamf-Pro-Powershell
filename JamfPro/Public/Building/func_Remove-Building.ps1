@@ -23,6 +23,7 @@ function Remove-Building
         [Parameter(Position = 2,
             ParameterSetName='single',
             Mandatory)]
+        [ValidateScript({ $_ -is [Int] -and $_ -gt 0})]
         [Int]$Id,
         
         [Parameter(Position = 2,
