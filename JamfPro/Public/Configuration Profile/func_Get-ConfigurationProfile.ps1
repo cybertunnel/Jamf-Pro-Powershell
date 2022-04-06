@@ -25,10 +25,12 @@ function Get-ConfigurationProfile
         
         [Parameter(Position = 3,
             ParameterSetName='single')]
+        [ValidateScript({$_ -gt 0})]
         [Int]$Id,
 
         [Parameter(Position = 3,
             ParameterSetName='single')]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
         [String]$Name,
 
         [Parameter(Position = 2)]
