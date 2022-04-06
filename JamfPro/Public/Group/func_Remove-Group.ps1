@@ -1,3 +1,6 @@
+############################
+# API Type: Legacy / Classic
+# --------------------------
 # Documentation Reference:
 # - Computer Group by ID: https://developer.jamf.com/jamf-pro/reference/deletecomputergroupbyid
 # - Computer Group by Name: https://developer.jamf.com/jamf-pro/reference/deletecomputergroupbyname
@@ -8,38 +11,40 @@
 function Remove-Group
 {
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 2, Mandatory = $true)][int]$Id,
-        [Parameter(Position = 3, Mandatory = $false)][switch]$Computer,
-        [Parameter(Position = 4, Mandatory = $false)][String]$Token
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+
+        [Parameter(Position = 2)]
+        [ValidateScript({$_ -gt 0})]
+        [Int]$Id,
+
+        [Parameter(Position = 3)]
+        [Switch]$Computer
     )
+
+    $URI_PATH = "JSSResource/computergroups"
+    $URI = "$Server/$URI_PATH"
+
+    $URI += "/id/$Id"
 
     if (-not $Computer)
     {
-        throw "A group type flag must be provided. Supported groups: `"-Computer`"."
+        throw "A Computer Group type must be provided. Currently supported types: `"-Computer`""
     }
 
-    if (($null -eq $Credential) -and ($null -eq $Token))
-    {
-        # Prompt for credentials if none were provided
-        $Credential = Get-Credential
-    }
-
-    if ($Computer)
-    {
-        $URI = "$Server/JSSResource/computergroups/id/$Id"
-    }
-
-    if (-not $null -eq $token)
-    {
-        $headers = @{"Authorization" = "Bearer $token"}
-        $response = Invoke-RestMethod $URI -Method Delete -Headers $headers
-        return $response
-
-    }
-    else {
-        $response = Invoke-RestMethod $URI -Method Delete -Credential $Credential -Authentication Basic
-        return $response
-    }
+    $headers = @{"Accept" = "application/json"
+            "Authorization" = "Bearer $Token"
+        }
+    $response = Invoke-RestMethod $URI -Method Delete -Headers $headers
+    return $response
 }

@@ -1,3 +1,6 @@
+############################
+# API Type: Legacy / Classic
+# --------------------------
 # Documentation Reference:
 # - Computer Group by ID: https://developer.jamf.com/jamf-pro/reference/findcomputergroupsbyid
 # - Computer Group by Name: https://developer.jamf.com/jamf-pro/reference/findcomputergroupsbyname
@@ -8,54 +11,72 @@
 function Get-Group
 {
     Param(
-        [Parameter(Position = 4, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $false)][switch]$Computer,
-        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 3, Mandatory = $false)][String]$Token,
-        [Parameter(Position = 0, Mandatory = $false)][String]$Id,
-        [Parameter(Position = 0, Mandatory = $false)][String]$Name
+        [CmdletBinding(DefaultParameterSetName='single')]
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+        
+        [Parameter(Position = 3,
+            ParameterSetName='single')]
+        [ValidateScript({$_ -gt 0})]
+        [Int]$Id,
+
+        [Parameter(Position = 3,
+            ParameterSetName='single')]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Name,
+
+        [Parameter(Position = 2,
+            ParameterSetName='single')]
+        [Parameter(ParameterSetName='all')]
+        [Switch]$Computer,
+
+        [Parameter(Position = 3,
+            ParameterSetName='all')]
+        [Switch]$All
     )
+
+    $URI_PATH = "JSSResource/computergroups"
+    $URI = "$Server/$URI_PATH"
 
     if (-not $Computer)
     {
-        throw "A group type flag must be provided. Supported groups: `"-Computer`"."
+        throw "An Computer Group type flag must be provided. Supported extension attributes: `"-Computer`"."
     }
 
-    if ($null -eq $Id -and $null -eq $Name)
-    {
-        throw "An `"-Id`" or `"-Name`" must be provided."
-    }
-
-    if (($null -eq $Credential) -and ($null -eq $Token))
-    {
-        # Prompt for credentials if none were provided
-        $Credential = Get-Credential
-    }
-
-    # Generate the URI
-    if ($Computer)
+    if (-not $All)
     {
         if (-not $null -eq $Id)
         {
-            $URI = "$Server/JSSResource/computergroups/id/$Id"
+            $URI += "/id/$Id"
         }
-        elseif (-not $null -eq $Name) {
-            $URI = "$Server/JSSResource/computergroups/name/$Name"
+        elseif (-not $null -eq $Name)
+        {
+            $URI += "/name/$Name"
+        }
+        else
+        {
+            throw "Either a `"-Id`" or `"-Name`" must be provided."
         }
     }
+    $headers = @{"Accept" = "application/json"
+            "Authorization" = "Bearer $Token"}
+    $response = Invoke-RestMethod $URI -Method Get -Headers $headers
 
-    if ($null -eq $Token)
+    if ($All)
     {
-        $headers = @{"Accept" = "application/json"}
-        $response = Invoke-RestMethod $URI -Method Get -Headers $headers -Credential $Credential -Authentication Basic
+        return $response.computer_groups
     }
     else
     {
-        $headers = @{"Accept" = "application/json"
-            "Authorization" = "Bearer $Token"
-        }
-        $response = Invoke-RestMethod $URI -Method Get -Headers $headers
+        return $response.computer_group
     }
-
-    return $response.computer_group
 }
