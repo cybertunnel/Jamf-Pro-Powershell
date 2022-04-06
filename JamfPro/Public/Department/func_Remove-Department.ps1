@@ -3,11 +3,30 @@
 # - Multiple IDs: https://developer.jamf.com/jamf-pro/reference/post_v1-departments-delete-multiple
 function Remove-Department
 {
+    [CmdletBinding(DefaultParameterSetName='single')]
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $true)][String]$Token,
-        [Parameter(Position = 1, Mandatory = $true)][Int]$Id,
-        [Parameter(Position = 1, Mandatory = $false)][Int[]]$Ids
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+        [Parameter(Position = 1,
+            Mandatory,
+            ParameterSetName ='single')]
+        [ValidateScript({ $_ -is [Int] -and $_ -gt 0})]
+        [Int]$Id,
+        
+        [Parameter(Position = 1,
+            ParameterSetName = 'multiple')]
+        [ValidateScript({ $_ -is [Array] -and $_.count -gt 0})]
+        [Int[]]$Ids
     )
 
     if (-not $null -eq $Ids)
