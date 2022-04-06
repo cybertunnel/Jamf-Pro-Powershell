@@ -3,18 +3,40 @@
 function Remove-PreStage
 {
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $true)][String]$Token,
-        [Parameter(Position = 1, Mandatory = $true)][Int]$Id,
-        [Parameter(Position = 1, Mandatory = $true)][Switch]$Computer
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+        [Parameter(Position = 1,
+            Mandatory,
+            ParameterSetName ='single')]
+        [ValidateScript({ $_ -is [Int] -and $_ -gt 0})]
+        [Int]$Id,
+
+        [Parameter(Position = 5,
+            Mandatory)]
+        [ValidateSet('Computer', 'Mobile')]
+        [String]$Type
     )
 
-    if (-not $Computer)
+    if ($Type -eq 'Computer')
     {
-        throw "A Pre-Stage type must be provided. Currently supported types: `"-Computer`""
+        $URI_PATH = "api/v2/computer-prestages"
+    }
+    elseif ($Type -eq 'Mobile')
+    {
+        $URI_PATH = "api/v2/mobile-device-prestages"
     }
 
-    $URI = "$Server/api/v2/computer-prestages/$Id"
+    $URI = "$Server/$URI_PATH/$Id"
 
     $Headers = @{"Authorization" = "Bearer $Token"}
     
