@@ -36,7 +36,7 @@ function Get-ConfigurationProfile
         [Parameter(Position = 2)]
         [Switch]$Computer,
 
-        [Parameter(Position = 2,
+        [Parameter(Position = 3,
             ParameterSetName='all')]
         [Switch]$All
     )
