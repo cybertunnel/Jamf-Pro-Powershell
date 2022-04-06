@@ -1,3 +1,6 @@
+############################
+# API Type: Legacy / Classic
+# --------------------------
 # Documentation Reference:
 # - by ID: https://developer.jamf.com/jamf-pro/reference/findpoliciesbyid
 # - by Name: https://developer.jamf.com/jamf-pro/reference/findpoliciesbyname
@@ -6,51 +9,84 @@
 function Get-Policy
 {
     Param(
-        [Parameter(Position = 4, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 3, Mandatory = $false)][String]$Token,
-        [Parameter(Position = 0, Mandatory = $false)][String]$Id,
-        [Parameter(Position = 0, Mandatory = $false)][String]$Name,
-        [Parameter(Position = 0, Mandatory = $false)][String]$Subset
+        [CmdletBinding(DefaultParameterSetName='single')]
+        # Jamf Pro server
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+        
+        [Parameter(Position = 3,
+            ParameterSetName='single')]
+        [ValidateScript({$_ -gt 0})]
+        [Int]$Id,
+
+        [Parameter(Position = 3,
+            ParameterSetName='single')]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Name,
+
+        [Parameter(Position = 4,
+            ParameterSetName='single')]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Subset,
+
+        [Parameter(Position = 3,
+            ParameterSetName='all')]
+        [Switch]$All,
+
+        [Parameter(Position = 4,
+            ParameterSetName='all')]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Category
     )
 
-    if ($null -eq $Id -and $null -eq $Name)
-    {
-        throw "An `"-Id`" or `"-Name`" must be provided."
-    }
+    $URI_PATH = "JSSResource/policies"
+    $URI = "$Server/$URI_PATH"
 
-    if (($null -eq $Credential) -and ($null -eq $Token))
+    if (-not $All)
     {
-        # Prompt for credentials if none were provided
-        $Credential = Get-Credential
-    }
+        if (-not $null -eq $Id)
+        {
+            $URI += "/id/$Id"
+        }
+        elseif (-not $null -eq $Name)
+        {
+            $URI += "/name/$Name"
+        }
+        else
+        {
+            throw "Either a `"-Id`" or `"-Name`" must be provided."
+        }
 
-    if (-not $null -eq $Id)
-    {
-        $URI = "$Server/JSSResource/policies/id/$Id"
-    }
-    elseif (-not $null -eq $Name) {
-        $URI = "$Server/JSSResource/policies/name/$Name"
-    }
-
-    if (-not $null -eq $Subset)
-    {
-        $URI += "/subset/$Subset"
-    }
-
-    if ($null -eq $Token)
-    {
-        $headers = @{"Accept" = "application/json"}
-      
-        $response = Invoke-RestMethod $URI -Method Get -Headers $headers -Credential $Credential -Authentication Basic
-        return $response.policy
+        if (-not $null -eq $Subset)
+        {
+            $URI += "/subset/$Subset"
+        }
     }
     else
     {
-        $headers = @{"Accept" = "application/json"
-            "Authorization" = "Bearer $Token"
+        if (-not $null -eq $Category)
+        {
+            $URI += "/category/$Category"
         }
-        $response = Invoke-RestMethod $URI -Method Get -Headers $headers
+    }
+    $headers = @{"Accept" = "application/json"
+            "Authorization" = "Bearer $Token"}
+    $response = Invoke-RestMethod $URI -Method Get -Headers $headers
+
+    if ($All)
+    {
+        return $response.policies
+    }
+    else
+    {
         return $response.policy
     }
 }

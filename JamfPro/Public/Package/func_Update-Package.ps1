@@ -1,14 +1,30 @@
+############################
+# API Type: Legacy / Classic
+# --------------------------
 # Documentation Reference:
 # - by ID: https://developer.jamf.com/jamf-pro/reference/updatepackagebyid
 # - by Name: https://developer.jamf.com/jamf-pro/reference/updatepackagebyname
 function Update-Building
 {
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 1, Mandatory = $false)][String]$Token,
-        [Parameter(Position = 1, Mandatory = $true)][Int]$Id,
-        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 1, Mandatory = $false)][pscustomobject]$Package
+        # Jamf Pro server
+        [Parameter(Position = 0,
+        Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+        Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+        [Parameter(Position = 2)]
+        [ValidateScript({$_ -gt 0})]
+        [Int]$Id,
+
+        [Parameter(Position = 4)]
+        [PSCustomObject]$Package
     )
 
     if (($null -eq $Credential) -and ($null -eq $Token))
@@ -17,7 +33,9 @@ function Update-Building
         $Credential = Get-Credential
     }
 
-    $URI = "$Server/JSSResource/packages/id/$Id"
+    $URI_PATH = "JSSResource/computergroups"
+    $URI = "$Server/$URI_PATH"
+    $URI += "/id/$Id"
     $Headers = @{"Authorization" = "Bearer $Token"}
 
     $xmlString = "<?xml version=`"1.0`" encoding=`"utf-8`"?><package>"
@@ -46,18 +64,9 @@ function Update-Building
     $body = New-Object system.Xml.XmlDocument
     $body.LoadXml($xmlString)
 
-    if (-not $null -eq $token)
-    {
-        $headers = @{"Authorization" = "Bearer $token"
-            "Accept" = "application/json"    
-        }
-        $response = Invoke-RestMethod $URI -Method Put -ContentType 'application/xml' -Headers $headers -Body $body
-        return $response.package
-
+    $headers = @{"Authorization" = "Bearer $token"
+        "Accept" = "application/json"    
     }
-    else {
-        $headers = @{"Accept" = "application/json"}
-        $response = Invoke-RestMethod $URI -Method Put -ContentType 'application/xml' -Authentication Basic -Credential $Credential -Body $body -Headers $headers
-        return $response.package
-    }
+    $response = Invoke-RestMethod $URI -Method Put -ContentType 'application/xml' -Headers $headers -Body $body
+    return $response.package
 }

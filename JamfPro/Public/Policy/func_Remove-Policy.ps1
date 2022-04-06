@@ -2,9 +2,7 @@
 # API Type: Legacy / Classic
 # --------------------------
 # Documentation Reference:
-# - by ID: https://developer.jamf.com/jamf-pro/reference/deletepackagebyid
-# - by Name: https://developer.jamf.com/jamf-pro/reference/deletepackagebyname
-function Remove-Building
+function Remove-Policy
 {
     Param(
         # Jamf Pro server
@@ -25,7 +23,7 @@ function Remove-Building
         [Int]$Id
     )
 
-    $URI_PATH = "JSSResource/packages"
+    $URI_PATH = "JSSResource/policies"
     $URI = "$Server/$URI_PATH"
 
     $URI += "/id/$Id"
