@@ -55,7 +55,7 @@ function Get-Department
 
     $URI_PATH = "api/v1/departments"
 
-    if ($null -eq $Id)
+    if (-not $null -eq $Id)
     {
         $URI = "$Server/$URI_PATH"
         $URI += "/$Id"
