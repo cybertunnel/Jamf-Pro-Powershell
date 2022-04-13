@@ -86,7 +86,7 @@ function Get-PreStage
         $URI_PATH = "api/v2/mobile-device-prestages"
     }
 
-    if ($null -eq $Id)
+    if (-not $null -eq $Id)
     {
         $URI = "$Server/$URI_PATH"
         $URI += "/$Id"
@@ -162,7 +162,14 @@ function Get-PreStage
 
     $Headers = @{"Authorization" = "Bearer $Token"}
     
-    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET | Select-Object -ExpandProperty results
+    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
 
-    return $response
+    if ($Id -eq 0)
+    {
+        return $response | Select-Object -ExpandProperty results
+    }
+    else
+    {
+        return $response
+    }
 }
