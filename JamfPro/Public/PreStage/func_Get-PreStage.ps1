@@ -95,6 +95,10 @@ function Get-PreStage
         {
             $URI += "/history"
         }
+        elseif ($Scope)
+        {
+            $URI += "/scope"
+        }
     }
     else
     {
@@ -105,6 +109,17 @@ function Get-PreStage
             # Process pages
             write-host "Pulling all data"
             $Headers = @{"Authorization" = "Bearer $Token"}
+
+            if ($Scope)
+            {
+                $URI += "/scope"
+                write-host "URI: $URI"
+                $response = Invoke-RestMethod $URI -Headers $Headers -Method Get
+
+                return $response
+            }
+
+            
             if (-not $null -eq $Filter)
             {
                 $URI += "?filter=$Filter"
@@ -115,6 +130,7 @@ function Get-PreStage
                 $URI += "?"
                 $totalCount = Invoke-RestMethod ($URI + "page=0" + "&page-size=1") -Headers $Headers -Method Get | Select-Object -ExpandProperty totalCount
             }
+            
             $totalPages = [math]::Floor($totalCount/$PageSize)
             Write-Host "Processing a total of $totalPages pages..."
             Write-Host "URI: $URI"
