@@ -20,7 +20,7 @@ function Update-Scope
         # Object as a pscustomobject
         [Parameter(Position = 2,
         Mandatory)]
-        [pscustomobject]$Object,
+        [pscustomobject]$JamfObject,
 
         # Object as a pscustomobject
         [Parameter(Position = 3)]
@@ -35,108 +35,130 @@ function Update-Scope
         [pscustomobject]$Remove
     )
 
-    # Set the Scope
-    if (-not $null -eq $Set)
+    $TARGET_KEYS = @('computers', 'buildings', 'departments', 'computer_groups')
+    $LIMITATION_KEYS = @('users', 'user_groups', 'network_segments', 'ibeacons')
+    $EXCLUSION_KEYS = $TARGET_KEYS + $LIMITATION_KEYS
+
+    if ($null -eq $Set)
     {
-        Write-Host 'Setting the scope of the object...'
+        foreach ($key in $TARGET_KEYS)
+        {
+            # Add
+            if ($Add.$key.length -gt 0)
+            {
+                foreach ($item in $Add.$key)
+                {
+                    if (($JamfObject.scope.$key -match $item).length -gt 0)
+                    {
+                        # Object is already scoped, skipping
+                        Write-Host "Jamf Object under key $key with value of $item already is in the object, skipping..."
+                    }
+                    else
+                    {
+                        $JamfObject.scope.$key += $item
+                    }
+                }
+            }
+
+            # Remove
+            if ($Remove.$key.length -gt 0)
+            {
+                foreach ($item in $Remove.$key)
+                {
+                    if (($JamfObject.scope.$key -match $item).length -gt 0)
+                    {
+                        Write-Host "Removing object $item"
+                        $JamfObject.scope.$key = ($JamfObject.scope.$key | Where-Object {  $_.id -ne $item.id})
+                    }
+                    else
+                    {
+                        # Object is already not scoped, skipping
+                        Write-Host "Jamf Object under key $key with value of $item already is not in the object, skipping..."
+                    }
+                }
+            }
+        }
+
+        foreach ($key in $LIMITATION_KEYS)
+        {
+            # Add
+            if ($Add.limitations.$key.length -gt 0)
+            {
+                foreach ($item in $Add.limitations.$key)
+                {
+                    if (($JamfObject.scope.limitations.$key -match $item).length -gt 0)
+                    {
+                        # Object is already scoped, skipping
+                        Write-Host "Jamf Object under key limitations $key with value of $item already is in the object, skipping..."
+                    }
+                    else
+                    {
+                        $JamfObject.scope.limitations.$key += $item
+                    }
+                }
+            }
+
+            # Remove
+            if ($Remove.limitations.$key.length -gt 0)
+            {
+                foreach ($item in $Remove.limitations.$key)
+                {
+                    if (($JamfObject.scope.limitations.$key -match $item).length -gt 0)
+                    {
+                        Write-Host "Removing object $item"
+                        $JamfObject.scope.limitations.$key = ($JamfObject.scope.limitations.$key | Where-Object {  $_.id -ne $item.id})
+                    }
+                    else
+                    {
+                        # Object is already not scoped, skipping
+                        Write-Host "Jamf Object under key limitations $key with value of $item already is not in the object, skipping..."
+                    }
+                }
+            }
+        }
+
+        foreach ($key in $EXCLUSION_KEYS)
+        {
+            # Add
+            if ($Add.exclusions.$key.length -gt 0)
+            {
+                foreach ($item in $Add.exclusions.$key)
+                {
+                    if (($JamfObject.scope.exclusions.$key -match $item).length -gt 0)
+                    {
+                        # Object is already scoped, skipping
+                        Write-Host "Jamf Object under key exclusions $key with value of $item already is in the object, skipping..."
+                    }
+                    else
+                    {
+                        $JamfObject.scope.exclusions.$key += $item
+                    }
+                }
+            }
+
+            # Remove
+            if ($Remove.exclusions.$key.length -gt 0)
+            {
+                foreach ($item in $Remove.exclusions.$key)
+                {
+                    if (($JamfObject.scope.exclusions.$key -match $item).length -gt 0)
+                    {
+                        Write-Host "Removing object $item"
+                        $JamfObject.scope.exclusions.$key = ($JamfObject.scope.exclusions.$key | Where-Object {  $_.id -ne $item.id})
+                    }
+                    else
+                    {
+                        # Object is already not scoped, skipping
+                        Write-Host "Jamf Object under key exclusions $key with value of $item already is not in the object, skipping..."
+                    }
+                }
+            }
+        }
     }
     else
     {
-        if (-not $null -eq $Add)
-        {
-            Write-Host 'Adding the objects passed...'
-
-            $TARGET_KEYS = @('computers', 'computer_groups', 'buildings', 'departments')
-            $LIMITATION_KEYS = @('ibeacons', 'network_segments', 'users', 'user_groups')
-            $EXCLUSION_KEYS = @('buildings', 'computers', 'computer_groups', 'departments', 'ibeacons', 'network_segments', 'users', 'user_groups')
-            
-
-            foreach ($key in $TARGET_KEYS)
-            {
-                try {
-                    $additions = $Add.$key
-                }
-                catch {
-                    break;
-                }
-                
-                if ($additions.count -gt 0)
-                {
-                    # Add the objects
-                    foreach ($Item in $Add.$key)
-                    {
-                        if (-not $Item -in $Object.scope.$key)
-                        {
-                            Write-Host 'Adding object to scope...'
-                            $Object.scope.$key += $Item
-                        }
-                    }
-                }
-            }
-
-            foreach ($key in $LIMITATION_KEYS)
-            {
-                try {
-                    $limitationAdditions = $Add.limitations.$key
-                }
-                catch {
-                    break;
-                }
-
-                if ($limitationAdditions.count -gt 0)
-                {
-                    # Add the limitations
-                    foreach ($item in $Add.limitations.$key)
-                    {
-                        if (-not $Item -in $Object.scope.limitations.$key)
-                        {
-                            Write-Host 'Adding object to limitation...'
-                            $Object.scope.limitations.$key += $Item
-                        }
-                    }
-                }
-
-            }
-
-            foreach ($key in $EXCLUSION_KEYS)
-            {
-                try {
-                    $exclusionAdditions = $Add.exclusions.$key
-                }
-                catch {
-                    break;
-                }
-
-                if ($exclusionAdditions.count -gt 0)
-                {
-                    # Add the exclusions
-                    foreach ($item in $Add.exclusions.$key)
-                    {
-                        if (-not $Item -in $Object.scope.exclusions.$key)
-                        {
-                            Write-Host 'Adding object to limitation...'
-                            $Object.scope.exclusions.$key += $Item
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            Write-Host 'No scope additions were passed.'
-        }
-
-        if (-not $null -eq $Remove)
-        {
-            Write-Host 'Removing the objects passed...'
-        }
-        else
-        {
-            Write-Host 'No scope removals were passed.'
-        }
+        $JamfObject.scope = $Set
     }
 
-    
-
-
+    return $JamfObject
 }
