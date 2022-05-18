@@ -81,7 +81,7 @@ FunctionsToExport = @(
     'Get-Script', 'Update-Script', 'Remove-Script', 'Get-PreloadRecords', 'Get-PreloadTemplate',
     'Get-ConfigurationProfiles', 'Get-ConfigurationProfile', 'Update-ConfigurationProfile',
     'Remove-ConfigurationProfile', 'New-ConfigurationProfile', 'Get-InventoryPreload',
-    'Get-InventoryPreloadRecord', 'Get-Computer')
+    'Get-InventoryPreloadRecord', 'Get-Computer', 'New-Scope', 'Update-Scope', 'ConvertTo-JamfXML')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
