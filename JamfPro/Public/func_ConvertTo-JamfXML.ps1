@@ -1,4 +1,5 @@
 # Takes in PSCustomObject and returns an XML document
+# Max Depth: 5 (Parent, Child, Grand Child, Great Grand Child, Great Great Grand Child)
 function ConvertTo-JamfXML
 {
     Param(
@@ -14,68 +15,93 @@ function ConvertTo-JamfXML
 
     foreach ($parentElement in $parentElements)
     {
-        #Write-Host "Processing Element $parentElement"
-        $newParentElement = $newObjectType.AppendChild($xmlObj.CreateElement($parentElement))
+        $parentXML = $newObjectType.AppendChild($xmlObj.CreateElement($parentElement))
 
         # Check if Custom Object or Array with contents
         if ($JamfObject.$parentElement -is [PSCustomObject] -or ($JamfObject.$parentElement -is [Array] -and $JamfObject.$parentElement.count -gt 0))
         {
-            #Write-Host "Parent has children!"
-
+            # There might be more than 1 layer of children, MULTI generations!
             $childrenElements = $JamfObject.$parentElement | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | Select-Object -ExpandProperty Name
 
+            # Grabbing the contents of each child object
             foreach ($childElement in $childrenElements)
             {
-                #Write-Host "Processing Child Element $childElement"
-                $newChildElement = $newParentElement.AppendChild($xmlObj.CreateElement($childElement))
+                $childXML = $parentXML.AppendChild($xmlObj.CreateElement($childElement))
 
-                if ($parentElement -eq 'scope' -and -not $childElement -eq "limitations" -and -not $childElement -eq "exclusions" -and -not $childElement -eq "all_computers")
+                # Add scope specific xml elements
+                if ($parentElement -eq 'scope' -and $childElement -ne 'limitations' -and $childElement -ne 'exclusions' -and $childElement -ne 'all_computers')
                 {
-                    $newChildElement = $newChildElement.AppendChild($xmlObj.CreateElement($childElement.Substring(0, $childElement.length -1)))
-                    Write-Host "Child element: $childElement"
-                }
-                elseif ($parentElement -eq 'scope' -and $childElement -eq "buildings")
-                {
-                    Write-Host "False object of $childElement"
+                    Write-Host 'Scope object like computer groups has been found, adding the required child element'
+                    $childXML = $childXML.AppendChild($xmlObj.CreateElement($childElement.Substring(0, $childElement.Length - 1)))
                 }
 
-                # Chick if Custom Object or Array with content
+                # Check if Custom Object or Array with contents
                 if ($JamfObject.$parentElement.$childElement -is [PSCustomObject] -or ($JamfObject.$parentElement.$childElement -is [Array] -and $JamfObject.$parentElement.$childElement.count -gt 0))
                 {
-                    $childrenChildrenElements = $JamfObject.$parentElement.$childElement | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | Select-Object -ExpandProperty Name
+                    $grandChildrenElements = $JamfObject.$parentElement.$childElement | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | Select-Object -ExpandProperty Name
 
-                    foreach ($childChildElement in $childrenChildrenElements)
+                    # Grabbing the contents of each grandchild object
+                    foreach ($grandChildElement in $grandChildrenElements)
                     {
-                        if ($parentElement -eq 'scope')
-                        {
-                            Write-Host "Processing child child element of $childChildElement"
-                        }
-                        $newChildChildElement = $newChildElement.AppendChild($xmlObj.CreateElement($childChildElement))
+                        $grandChildXML = $childXML.AppendChild($xmlObj.CreateElement($grandChildElement))
 
-                        # Chick if Custom Object or Array with content
-                        if ($JamfObject.$parentElement.$childElement.$childChildElement -is [PSCustomObject] -or ($JamfObject.$parentElement.$childElement.$childChildElement -is [Array] -and $JamfObject.$parentElement.$childElement.$childChildElement.count -gt 0))
+                        # Add scope specific xml elements
+                        if ($parentElement -eq 'scope' -and ($childElement -eq 'limitations' -or $childElement -eq 'exclusions'))
                         {
-                            $newChildChildElement.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$childChildElement))
+                            Write-Host 'Scope object like computer groups inside exclusions has been found, adding the required child element'
+                            $grandChildXML = $grandChildXML.AppendChild($xmlObj.CreateElement($grandChildElement.Substring(0, $grandChildElement.Length - 1)))
+                        }
+
+                        # Check if Custom Object or Array with contents
+                        if ($JamfObject.$parentElement.$childElement.$grandChildElement -is [PSCustomObject] -or ($JamfObject.$parentElement.$childElement.$grandChildElement -is [Array] -and $JamfObject.$parentElement.$childElement.$grandChildElement.count -gt 0))
+                        {
+                            $greatGrandChildrenElements = $JamfObject.$parentElement.$childElement.$grandChildElement | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | Select-Object -ExpandProperty Name
+
+                            # Grabbing the contents of each great grandchild object
+                            foreach ($greatGrandChildElement in $greatGrandChildrenElements)
+                            {
+                                $greatGrandChildXML = $grandChildXML.AppendChild($xmlObj.CreateElement($greatGrandChildElement))
+
+                                # Check if Custom Object or Array with contents
+                                if ($JamfObject.$parentElement.$childElement.$grandChildElement -is [PSCustomObject] -or ($JamfObject.$parentElement.$childElement.$grandChildElement -is [Array] -and $JamfObject.$parentElement.$childElement.$grandChildElement.count -gt 0))
+                                {
+                                    $greatGreatGrandChildrenElements = $JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | Select-Object -ExpandProperty Name
+
+                                    # Grabbing the contents of each great great grandchild object
+                                    foreach ($greatGreatGrandChildElement in $greatGreatGrandChildrenElements)
+                                    {
+                                        $greatGreatGrandChildXML = $greatGrandChildXML.AppendChild($xmlObj.CreateElement($greatGreatGrandChildElement))
+                                        $greatGreatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement.$greatGreatGrandChildElement))
+
+                                        # Max depth, time to set value
+                                        Write-Host 'WARNING: Max-Depth of 5 reached.'
+                                    }
+                                }
+                                else
+                                {
+                                    # Great Grand Child doesn't have children, maybe cost of living too high?
+                                    $greatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement))
+                                }
+                            }
                         }
                         else
                         {
-                            if ($parentElement -eq 'scope' -and -not $childElement -eq 'limitations' -and -not $childElement -eq 'exclusions')
-                            {
-                                Write-Host "YEEEHAW"
-                            }
-                            $newChildChildElement.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$childChildElement))
+                            # Grand Child doesn't have children, not so grand eh?
+                            $grandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement))
                         }
                     }
                 }
                 else
                 {
-                    $newChildElement.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement))
+                    # Child object doesn't have children
+                    $childXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement))
                 }
             }
         }
         else
         {
-            $newParentElement.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement))
+            # Parent object doesn't have children
+            $parentXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement))
         }
     }
     
