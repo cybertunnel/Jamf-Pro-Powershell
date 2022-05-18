@@ -113,11 +113,11 @@ function New-Scope
         {
             try {
                 $value = [int]$group
-                $groupObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $groupObj = Get-Group -Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
             }
             catch {
                 $value = [string]$group
-                $groupObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $groupObj = Get-Group -Computer -All -Server $Server -Token $Token | Where-Object {$_.name -eq $value} | Select-Object id, name
             }
             $processedGroups += $groupObj
         }
@@ -138,11 +138,11 @@ function New-Scope
         {
             try {
                 $value = [int]$building
-                $buildingObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $buildingObj = Get-Building -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
             }
             catch {
                 $value = [string]$building
-                $buildingObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $buildingObj = Get-Building -All -Server $Server -Token $Token | Where-Object {$_.name -eq $value} | Select-Object id, name
             }
             $processedBuildings += $buildingObj
         }
@@ -163,11 +163,11 @@ function New-Scope
         {
             try {
                 $value = [int]$department
-                $departmentObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $departmentObj = Get-Department -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
             }
             catch {
                 $value = [string]$department
-                $departmentObj = Get-Computer -All -Server $Server -Token $Token | Where-Object {$_.id -eq $value} | Select-Object id, name
+                $departmentObj = Get-Department -All -Server $Server -Token $Token | Where-Object {$_.name -eq $value} | Select-Object id, name
             }
             $processedDepartments += $departmentObj
         }
