@@ -29,8 +29,8 @@ function Update-Policy
     # Check if policy exists
     try
     {
-        Get-Policy -Id $Policy.general.id -Server $Server -Token $token
         $URI += "/id/$($Policy.general.id)"
+        Get-Policy -Id $Policy.general.id -Server $Server -Token $token
     }
     catch
     {
