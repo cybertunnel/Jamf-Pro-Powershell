@@ -29,7 +29,7 @@ function ConvertTo-JamfXML
                 $childXML = $parentXML.AppendChild($xmlObj.CreateElement($childElement))
 
                 # Add scope specific xml elements
-                if ($parentElement -eq 'scope' -and $childElement -ne 'limitations' -and $childElement -ne 'exclusions' -and $childElement -ne 'all_computers')
+                if ($parentElement -eq 'scope' -and $childElement -ne 'limitations' -and $childElement -ne 'exclusions' -and $childElement -ne 'all_computers' -and -not $null -eq  $JamfObject.$parentElement.$childElement)
                 {
                     Write-Host 'Scope object like computer groups has been found, adding the required child element'
                     $childXML = $childXML.AppendChild($xmlObj.CreateElement($childElement.Substring(0, $childElement.Length - 1)))
@@ -46,7 +46,7 @@ function ConvertTo-JamfXML
                         $grandChildXML = $childXML.AppendChild($xmlObj.CreateElement($grandChildElement))
 
                         # Add scope specific xml elements
-                        if ($parentElement -eq 'scope' -and ($childElement -eq 'limitations' -or $childElement -eq 'exclusions'))
+                        if ($parentElement -eq 'scope' -and ($childElement -eq 'limitations' -or $childElement -eq 'exclusions') -and -not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement)
                         {
                             Write-Host 'Scope object like computer groups inside exclusions has been found, adding the required child element'
                             $grandChildXML = $grandChildXML.AppendChild($xmlObj.CreateElement($grandChildElement.Substring(0, $grandChildElement.Length - 1)))
@@ -71,7 +71,8 @@ function ConvertTo-JamfXML
                                     foreach ($greatGreatGrandChildElement in $greatGreatGrandChildrenElements)
                                     {
                                         $greatGreatGrandChildXML = $greatGrandChildXML.AppendChild($xmlObj.CreateElement($greatGreatGrandChildElement))
-                                        $greatGreatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement.$greatGreatGrandChildElement))
+                                        if (-not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement.$greatGreatGrandChildElement) { $greatGreatGrandChildXML.AppendChild($xmlObj.CreateTextNode()) }
+                                        
 
                                         # Max depth, time to set value
                                         Write-Host 'WARNING: Max-Depth of 5 reached.'
@@ -80,21 +81,21 @@ function ConvertTo-JamfXML
                                 else
                                 {
                                     # Great Grand Child doesn't have children, maybe cost of living too high?
-                                    $greatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement))
+                                    if (-not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement) { $greatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement)) }
                                 }
                             }
                         }
                         else
                         {
                             # Grand Child doesn't have children, not so grand eh?
-                            $grandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement))
+                            if (-not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement) { $grandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement)) }
                         }
                     }
                 }
                 else
                 {
                     # Child object doesn't have children
-                    $childXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement))
+                    if (-not $null -eq $JamfObject.$parentElement.$childElement) { $childXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement)) }
                 }
             }
         }
