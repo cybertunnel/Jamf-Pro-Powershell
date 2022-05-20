@@ -29,7 +29,7 @@ function ConvertTo-JamfXML
                 $childXML = $parentXML.AppendChild($xmlObj.CreateElement($childElement))
 
                 # Add scope specific xml elements
-                if ($parentElement -eq 'scope' -and $childElement -ne 'limitations' -and $childElement -ne 'exclusions' -and $childElement -ne 'all_computers' -and -not $null -eq  $JamfObject.$parentElement.$childElement)
+                if ($parentElement -eq 'scope' -and $childElement -ne 'limitations' -and $childElement -ne 'exclusions' -and $childElement -ne 'all_computers' -and -not $null -eq  $JamfObject.$parentElement.$childElement  -and $JamfObject.$parentElement.$childElement.toString() -ne "")
                 {
                     Write-Host 'Scope object like computer groups has been found, adding the required child element'
                     $childXML = $childXML.AppendChild($xmlObj.CreateElement($childElement.Substring(0, $childElement.Length - 1)))
@@ -46,7 +46,7 @@ function ConvertTo-JamfXML
                         $grandChildXML = $childXML.AppendChild($xmlObj.CreateElement($grandChildElement))
 
                         # Add scope specific xml elements
-                        if ($parentElement -eq 'scope' -and ($childElement -eq 'limitations' -or $childElement -eq 'exclusions') -and -not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement)
+                        if ($parentElement -eq 'scope' -and ($childElement -eq 'limitations' -or $childElement -eq 'exclusions') -and -not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement -and $JamfObject.$parentElement.$childElement.$grandChildElement.toString() -ne "")
                         {
                             Write-Host 'Scope object like computer groups inside exclusions has been found, adding the required child element'
                             $grandChildXML = $grandChildXML.AppendChild($xmlObj.CreateElement($grandChildElement.Substring(0, $grandChildElement.Length - 1)))
@@ -81,7 +81,7 @@ function ConvertTo-JamfXML
                                 else
                                 {
                                     # Great Grand Child doesn't have children, maybe cost of living too high?
-                                    if (-not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement) { $greatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement)) }
+                                    if (-not $null -eq $JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement -or $JamfObject.$parentElement.$childElement.$grandChildElement.toString() -eq "") { $greatGrandChildXML.AppendChild($xmlObj.CreateTextNode($JamfObject.$parentElement.$childElement.$grandChildElement.$greatGrandChildElement)) }
                                 }
                             }
                         }
