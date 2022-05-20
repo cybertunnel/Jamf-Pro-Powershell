@@ -92,7 +92,7 @@ function New-Scope
             }
             catch {
                 $value = [string]$computer
-                $computerObj = Get-Computer -All -Server $Server -Token $Token -Filter "general.name==$value" | Select-Object id -ExpandProperty general | Select-Object id, name
+                $computerObj = Get-Computer -All -Server $Server -Token $Token -Filter "general.name==`"$value`"" | Select-Object id -ExpandProperty general | Select-Object id, name
             }
             $processedDevices += $computerObj
         }
