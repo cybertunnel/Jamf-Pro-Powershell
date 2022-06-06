@@ -70,19 +70,37 @@ ScriptsToProcess = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
-    'New-Token', 'Remove-Token', 'Update-Token', 'Get-Groups', 'Get-Group', 'New-Group',
-    'Remove-Group', 'Update-Group', 'Get-Site', 'Get-Sites', 'New-Site', 'Remove-Site',
-    'Update-Site', 'Add-Criteria', 'Get-Policy', 'Get-Policies', 'Get-ExtensionAttributes',
-    'Get-ExtensionAttribute', 'Get-PreStages', 'Get-PreStage', 'Update-PreStage', 'Remove-PreStage',
+    # Authentication
+    'New-Token', 'Remove-Token', 'Update-Token',
+    # Groups
+    'Get-Groups', 'Get-Group', 'New-Group','Remove-Group', 'Update-Group',
+    # Site
+    'Get-Site', 'Get-Sites', 'New-Site', 'Remove-Site', 'Update-Site',
+    # Extention Attribute
+    'Get-ExtensionAttribute', 'Get-ExtensionAttributes',
+    # Pre-Stage
+    'Get-PreStages', 'Get-PreStage', 'Update-PreStage', 'Remove-PreStage',
+    # Buildings
     'Get-Buildings', 'Get-Building', 'Remove-Building', 'New-Building', 'Update-Building',
-    'Get-Packages', 'Get-Package', 'Remove-Package', 'Update-Package', 'Get-Categories',
-    'Get-Category', 'New-Category', 'Remove-Category', 'Update-Category', 'Get-Departments',
-    'Get-Department', 'New-Department', 'Update-Department', 'Remove-Department', 'Get-Scripts',
-    'Get-Script', 'Update-Script', 'Remove-Script', 'Get-PreloadRecords', 'Get-PreloadTemplate',
-    'Get-ConfigurationProfiles', 'Get-ConfigurationProfile', 'Update-ConfigurationProfile',
-    'Remove-ConfigurationProfile', 'New-ConfigurationProfile', 'Get-InventoryPreload',
-    'Get-InventoryPreloadRecord', 'Get-Computer', 'New-Scope', 'Update-Scope', 'ConvertTo-JamfXML',
-    'Update-Policy', 'Update-ConfigurationProfile')
+    # Packages
+    'Get-Packages', 'Get-Package', 'Remove-Package', 'Update-Package',
+    # Categories
+    'Get-Categories', 'Get-Category', 'New-Category', 'Remove-Category', 'Update-Category', 
+    # Scripts
+    'Get-Scripts', 'Get-Script', 'Update-Script', 'Remove-Script',
+    # Configuration Profiles
+    'New-ConfigurationProfile', 'Get-ConfigurationProfiles', 'Get-ConfigurationProfile', 'Update-ConfigurationProfile', 'Remove-ConfigurationProfile',
+    # Departments
+    'Get-Departments', 'Get-Department', 'New-Department', 'Update-Department', 'Remove-Department',
+    # Policies
+    'Update-Policy', 'Get-Policies',  'Get-Policy',
+    # Computers
+    'Get-Computer', 
+    # Inventory Pre-Load
+    'Get-PreloadRecords', 'Get-PreloadTemplate', 'Get-InventoryPreload', 'Get-InventoryPreloadRecord',
+    # Utilities
+    'Add-Criteria', 'New-Scope', 'Update-Scope', 'ConvertTo-JamfXML'
+    )
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
