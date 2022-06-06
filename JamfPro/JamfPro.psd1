@@ -93,7 +93,7 @@ FunctionsToExport = @(
     # Departments
     'Get-Departments', 'Get-Department', 'New-Department', 'Update-Department', 'Remove-Department',
     # Policies
-    'Update-Policy', 'Get-Policies',  'Get-Policy',
+    'Update-Policy', 'Get-Policies',  'Get-Policy', 'Remove-Policy'
     # Computers
     'Get-Computer', 
     # Inventory Pre-Load
