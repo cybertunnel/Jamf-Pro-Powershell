@@ -43,7 +43,17 @@ function Get-Computer
         ParameterSetName='page')]
         [Parameter(ParameterSetName='all')]
         [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
-        [String]$Filter
+        [String]$Filter,
+
+        [Parameter(Position = 5,
+        ParameterSetName='page')]
+        [Parameter(ParameterSetName='all')]
+        [ValidateSet("GENERAL", "DISK_ENCRYPTION", "PURCHASING", "APPLICATIONS", "STORAGE",
+        "USER_AND_LOCATION", "CONFIGURATION_PROFILES", "PRINTERS", "SERVICES", "HARDWARE",
+        "LOCAL_USER_ACCOUNTS", "CERTIFICATES", "ATTACHMENTS", "PLUGINS", "PACKAGE_RECEIPTS",
+        "FONTS", "SECURITY", "OPERATING_SYSTEM", "LICENSED_SOFTWARE", "IBEACONS",
+        "SOFTWARE_UPDATES", "EXTENSION_ATTRIBUTES", "CONTENT_CACHING", "GROUP_MEMBERSHIPS")]
+        [Array]$Section
     )
     $URI_PATH = "api/v1/computers-inventory"
 
@@ -63,22 +73,39 @@ function Get-Computer
     else
     {
         $URI = "$Server/$URI_PATH"
+        $URI += "?"
+        
+        # Add specific additions if needed
+        ## Filter
+        if (-not $null -eq $Filter)
+        {
+            $URI += "filter=$Filter"
+        }
+
+        ## Sections
+        if ($Section.count -gt 0)
+        {
+            if ($URI[-1] -eq "?") {
+                $URI += "section=$(Join-String -Separator "," -InputObject $Section)"
+            }
+            else {
+                $URI += "&section=$(Join-String -Separator "," -InputObject $Section)"
+            }
+        }
 
         if ($All)
         {
             # Process pages
             write-host "Pulling all data"
             $Headers = @{"Authorization" = "Bearer $Token"}
-            if (-not $null -eq $Filter)
-            {
-                $URI += "?filter=$Filter"
-                $totalCount = Invoke-RestMethod ($URI + "&page=0" + "&page-size=1") -Headers $Headers -Method Get | Select-Object -ExpandProperty totalCount
-            }
-            else
-            {
-                $URI += "?"
+
+            if ($URI[-1] -eq "?") {
                 $totalCount = Invoke-RestMethod ($URI + "page=0" + "&page-size=1") -Headers $Headers -Method Get | Select-Object -ExpandProperty totalCount
             }
+            else {
+                    $totalCount = Invoke-RestMethod ($URI + "&page=0" + "&page-size=1") -Headers $Headers -Method Get | Select-Object -ExpandProperty totalCount
+            }
+            
             $totalPages = [math]::Floor($totalCount/$PageSize)
             Write-Host "Processing a total of $totalPages pages..."
             Write-Host "URI: $URI"
@@ -99,18 +126,17 @@ function Get-Computer
         }
         else
         {
-            $URI += "?page=$Page&page-size=$PageSize"
-
-            if (-not $null -eq $Filter)
-            {
-                $URI += "&filter=$Filter"
+            if ($URI[-1] -eq "?") {
+                $URI += "page=$Page&page-size=$PageSize"
+            }
+            else {
+                $URI += "&page=$Page&page-size=$PageSize"
             }
         }
     }
 
     $Headers = @{"Authorization" = "Bearer $Token"}
 
-    write-host "ID: $Id"
     $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
 
     if ($Id -eq 0)
