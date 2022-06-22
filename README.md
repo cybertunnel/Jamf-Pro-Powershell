@@ -107,7 +107,7 @@ Get-Department -Id 12 -Server $server -Token $token.token
     - [ ] Delete Building
     - [ ] Create Building
 - [ ] Departments
-    - [ ] Get Departments
+    - [x] Get Departments
     - [ ] Get single Department
     - [ ] Update Department
     - [ ] Delete Department
@@ -132,6 +132,7 @@ Get-Department -Id 12 -Server $server -Token $token.token
         - [ ] Delete Group
         - [ ] Create Group
 - [ ] Searches
+
   - [ ] Computer
     - [ ] Get Searches
     - [ ] Get single Search
@@ -147,7 +148,7 @@ Get-Department -Id 12 -Server $server -Token $token.token
 
 ### Device Settings / Configuration
 - [ ] Devices
-  - [ ] Computers
+  - [x] Computers
   - [ ] Mobile Devices
 - [ ] Configuration Profiles
 - [ ] Policies
