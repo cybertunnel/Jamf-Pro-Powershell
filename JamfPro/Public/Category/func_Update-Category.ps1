@@ -42,18 +42,16 @@ function Update-Category
 
         Invoke-RestMethod $URI -Headers $Headers -Method Post -ContentType 'application/json' -Body $Body
     }
-    elseif (-not $null -eq $Building)
+    elseif (-not $null -eq $Category)
     {
-        $Body = ConvertTo-Json $Building
+        $Body = ConvertTo-Json $Category
 
         Invoke-RestMethod $URI -Headers $Headers -Method Put -ContentType 'application/json' -Body $Body
     }
     else
     {
-        throw 'Either a -Building or -History has to be provided.'
+        throw 'Either a -Category or -History has to be provided.'
     }
-
-    
 
     return
 }
