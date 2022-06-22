@@ -4,10 +4,21 @@
 function Remove-Site
 {
     Param(
-        [Parameter(Position = 0, Mandatory = $true)][String]$Server,
-        [Parameter(Position = 2, Mandatory = $false)][pscredential]$Credential,
-        [Parameter(Position = 2, Mandatory = $false)][String]$Token,
-        [Parameter(Position = 2, Mandatory = $true)][Int]$Id
+        [Parameter(Position = 0,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Server,
+
+        # Token as string
+        [Parameter(Position = 1,
+            Mandatory)]
+        [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
+        [String]$Token,
+
+        # ID as Int
+        [Parameter(Position = 2, Mandatory = $true)]
+        [ValidateScript({$_ -gt 0})]
+        [Int]$Id
     )
 
     if (($null -eq $Credential) -and ($null -eq $Token))
