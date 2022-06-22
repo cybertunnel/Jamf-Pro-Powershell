@@ -17,7 +17,7 @@ function Get-Site
         $Credential = Get-Credential
     }
 
-    if (-not $null -eq $Id)
+    if ($Id -gt 0)
     {
         $URI = "$Server/JSSResource/sites/id/$Id"
     }

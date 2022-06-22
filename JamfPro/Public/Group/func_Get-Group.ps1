@@ -54,7 +54,7 @@ function Get-Group
 
     if (-not $All)
     {
-        if (-not $null -eq $Id)
+        if ($Id -gt 0)
         {
             $URI += "/id/$Id"
         }

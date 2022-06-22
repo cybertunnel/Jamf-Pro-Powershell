@@ -54,7 +54,7 @@ function Get-Building
 
     $URI_PATH = "api/v1/buildings"
 
-    if ($null -eq $Id)
+    if ($Id -gt 0)
     {
         $URI = "$Server/$URI_PATH"
         $URI += "/$Id"
@@ -114,7 +114,16 @@ function Get-Building
 
     $Headers = @{"Authorization" = "Bearer $Token"}
     
-    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET | Select-Object -ExpandProperty results
+    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
+
+    if ($Id -gt 0)
+    {
+        return $results
+    }
+    else
+    {
+        return Select-Object -InputObject $response -ExpandProperty results
+    }
 
     return $response
 }

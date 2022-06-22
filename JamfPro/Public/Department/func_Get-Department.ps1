@@ -55,7 +55,7 @@ function Get-Department
 
     $URI_PATH = "api/v1/departments"
 
-    if (-not $null -eq $Id)
+    if ($Id -gt 0)
     {
         $URI = "$Server/$URI_PATH"
         $URI += "/$Id"
@@ -115,7 +115,14 @@ function Get-Department
 
     $Headers = @{"Authorization" = "Bearer $Token"}
     
-    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET | Select-Object -ExpandProperty results
+    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
 
-    return $response
+    if ($id -gt 0)
+    {
+        return $response
+    }
+    else
+    {
+        return Select-Object -ExpandProperty results -InputObject $response
+    }
 }
