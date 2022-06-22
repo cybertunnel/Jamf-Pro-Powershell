@@ -79,73 +79,84 @@ Get-Department -Id 12 -Server $server -Token $token.token
 
 <!-- ROADMAP -->
 ## Roadmap
+### Resources / Utility
+- [x] Authentication
+  - [x] Get Token
+  - [x] Refresh Token
+  - [x] Invalidate Token
+- [x] Convert JSON to Jamf's XML
+- [x] Add Criteria (Smart Group/Search)
 
-- [x] Token Authentication
-    - [x] New Token
-    - [x] Refresh Token
-    - [x] Delete Token
-- [x] Computer Groups
-    - [x] Get Computer Groups
-    - [x] Delete Computer Groups
-    - [x] Create Computer Groups
-    - [x] Update Computer Groups
-- [ ] Policies
-    - [x] Get Policies
-    - [ ] Update Policy Scoping
-    - [ ] Delete Policies
-- [x] Packages
-    - [x] Get Packages
-    - [x] Delete Packages
-    - [x] Update Packages
-- [x] Sites
-    - [x] Get Sites
-    - [x] Create Sites
-    - [x] Update Sites
-    - [x] Delete Sites
-- [ ] Advanced Computer Searches
-    - [ ] Get Advanced Computer Searches
-    - [ ] Update Advanced Computer Searches
-    - [ ] Delete Advanced Computer Searches
-    - [ ] Create Advanced Computer Searches
-- [ ] Computer Extension Attributes
-    - [x] Get Extension Attributes
-    - [ ] Create Extension Attributes
-    - [x] Delete Extension Attributes
-    - [ ] Update Extension Attributes
-- [x] Scripts
-    - [x] Get Scripts
-    - [x] Create Scripts
-    - [x] Delete Scripts
-    - [x] Update Scripts
-- [ ] Computer Pre-Stages
-    - [x] Get Computer Pre-Stages
-    - [ ] Create Computer Pre-Stages
-    - [x] Delete Computer Pre-Stages
-    - [x] Update Computer Pre-Stages
-- [x] Buildings
-    - [x] Get Buildings
-    - [x] Create Buildings
-    - [x] Delete Buildings
-    - [x] Update Buildings
-- [x] Categories
+### Jamf Pro Settings / Configuration
+- [ ] Categories
     - [x] Get Categories
-    - [x] Create Categories
-    - [x] Delete Categories
-    - [x] Update Categories
-- [ ] Computers
-    - [ ] Get Computers
-    - [ ] Update Computers
-    - [ ] Delete Computers
-- [x] Departments
-    - [x] Get Departments
-    - [x] Update Departments
-    - [x] Delete Departments
-    - [x] Create Departments
+    - [ ] Get single Category
+    - [ ] Update Category
+    - [ ] Delete Category
+    - [ ] Create Category
+- [ ] Sites
+    - [ ] Get Sites
+    - [ ] Get single Site
+    - [ ] Update Site
+    - [ ] Delete Site
+    - [ ] Create Site
+- [ ] Buildings
+    - [x] Get Buildings
+    - [ ] Get single Building
+    - [ ] Update Building
+    - [ ] Delete Building
+    - [ ] Create Building
+- [ ] Departments
+    - [ ] Get Departments
+    - [ ] Get single Department
+    - [ ] Update Department
+    - [ ] Delete Department
+    - [ ] Create Department
+- [ ] Groups
+    - [ ] Computer
+        - [ ] Get Groups
+        - [ ] Get single Group
+        - [ ] Update Group
+        - [ ] Delete Group
+        - [ ] Create Group
+    - [ ] User
+        - [ ] Get Groups
+        - [ ] Get single Group
+        - [ ] Update Group
+        - [ ] Delete Group
+        - [ ] Create Group
+    - [ ] Mobile
+        - [ ] Get Groups
+        - [ ] Get single Group
+        - [ ] Update Group
+        - [ ] Delete Group
+        - [ ] Create Group
+- [ ] Searches
+  - [ ] Computer
+    - [ ] Get Searches
+    - [ ] Get single Search
+    - [ ] Update Search
+    - [ ] Delete Search
+    - [ ] Create Search
+  - [ ] Mobile
+    - [ ] Get Searches
+    - [ ] Get single Search
+    - [ ] Update Search
+    - [ ] Delete Search
+    - [ ] Create Search
+
+### Device Settings / Configuration
+- [ ] Devices
+  - [ ] Computers
+  - [ ] Mobile Devices
+- [ ] Configuration Profiles
+- [ ] Policies
+- [ ] Scripts
+- [ ] Extension Attributes
+- [ ] Prestages
 - [ ] Inventory Preload
-    - [ ] Get Inventory Preload
-    - [ ] Update Inventory Preload
-    - [ ] Delete Inventory Preload
-    - [ ] Create Inventory Preload
+- [ ] Packages
+
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
