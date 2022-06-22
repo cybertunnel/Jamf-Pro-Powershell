@@ -54,7 +54,7 @@ function Get-Category
 
     $URI_PATH = "api/v1/categories"
 
-    if ($null -eq $Id)
+    if ($Id -gt 0)
     {
         $URI = "$Server/$URI_PATH"
         $URI += "/$Id"
@@ -114,7 +114,15 @@ function Get-Category
 
     $Headers = @{"Authorization" = "Bearer $Token"}
     
-    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET | Select-Object -ExpandProperty results
+    $response = Invoke-RestMethod $URI -Headers $Headers -Method GET
 
-    return $response
+    # Logic to return the results if returning a large dataset.
+    if ($Id -gt 0)
+    {
+        return $response
+    }
+    else
+    {
+        return Select-Object -InputObject $response -ExpandProperty results
+    }
 }
