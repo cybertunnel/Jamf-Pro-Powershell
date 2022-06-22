@@ -118,7 +118,7 @@ function Get-Building
 
     if ($Id -gt 0)
     {
-        return $results
+        return $response
     }
     else
     {
