@@ -39,9 +39,9 @@ function Update-Department
 
         Invoke-RestMethod $URI -Headers $Headers -Method Post -ContentType 'application/json' -Body $Body
     }
-    elseif (-not $null -eq $Building)
+    elseif (-not $null -eq $Department)
     {
-        $Body = ConvertTo-Json $Building
+        $Body = ConvertTo-Json $Department
 
         Invoke-RestMethod $URI -Headers $Headers -Method Put -ContentType 'application/json' -Body $Body
     }
