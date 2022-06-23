@@ -88,51 +88,50 @@ Get-Department -Id 12 -Server $server -Token $token.token
 - [x] Add Criteria (Smart Group/Search)
 
 ### Jamf Pro Settings / Configuration
-- [ ] Categories
+- [x] Categories
     - [x] Get Categories
-    - [ ] Get single Category
-    - [ ] Update Category
-    - [ ] Delete Category
-    - [ ] Create Category
-- [ ] Sites
-    - [ ] Get Sites
-    - [ ] Get single Site
-    - [ ] Update Site
-    - [ ] Delete Site
-    - [ ] Create Site
-- [ ] Buildings
+    - [x] Get single Category
+    - [x] Update Category
+    - [x] Delete Category
+    - [x] Create Category
+- [x] Sites
+    - [x] Get Sites
+    - [x] Get single Site
+    - [x] Update Site
+    - [x] Delete Site
+    - [x] Create Site
+- [x] Buildings
     - [x] Get Buildings
-    - [ ] Get single Building
-    - [ ] Update Building
-    - [ ] Delete Building
-    - [ ] Create Building
-- [ ] Departments
+    - [x] Get single Building
+    - [x] Update Building
+    - [x] Delete Building
+    - [x] Create Building
+- [x] Departments
     - [x] Get Departments
-    - [ ] Get single Department
-    - [ ] Update Department
-    - [ ] Delete Department
-    - [ ] Create Department
+    - [x] Get single Department
+    - [x] Update Department
+    - [x] Delete Department
+    - [x] Create Department
 - [ ] Groups
     - [ ] Computer
-        - [ ] Get Groups
-        - [ ] Get single Group
+        - [x] Get Groups
+        - [x] Get single Group
         - [ ] Update Group
-        - [ ] Delete Group
+        - [x] Delete Group
         - [ ] Create Group
     - [ ] User
-        - [ ] Get Groups
-        - [ ] Get single Group
+        - [x] Get Groups
+        - [x] Get single Group
         - [ ] Update Group
-        - [ ] Delete Group
+        - [x] Delete Group
         - [ ] Create Group
     - [ ] Mobile
-        - [ ] Get Groups
-        - [ ] Get single Group
+        - [x] Get Groups
+        - [x] Get single Group
         - [ ] Update Group
-        - [ ] Delete Group
+        - [x] Delete Group
         - [ ] Create Group
 - [ ] Searches
-
   - [ ] Computer
     - [ ] Get Searches
     - [ ] Get single Search
@@ -148,15 +147,50 @@ Get-Department -Id 12 -Server $server -Token $token.token
 
 ### Device Settings / Configuration
 - [ ] Devices
-  - [x] Computers
+  - [ ] Computers
+    - [ ] Get Computers
+    - [ ] Get single computer
+    - [ ] Update computer
+    - [ ] Delete computer
+    - [ ] Create computer
   - [ ] Mobile Devices
+    - [ ] Get mobile devices
+    - [ ] Get single mobile device
+    - [ ] Update mobile device
+    - [ ] Delete mobile device
+    - [ ] Create mobile device
 - [ ] Configuration Profiles
+    - [ ] Get configuration profiles
+    - [ ] Get single configuration profile
+    - [ ] Update configuration profile
+    - [ ] Delete configuration profile
+    - [ ] Create configuration profile
 - [ ] Policies
+    - [ ] Get Policies
+    - [ ] Get single Policy
+    - [ ] Update Policy
+    - [ ] Delete Policy
+    - [ ] Create Policy
 - [ ] Scripts
+    - [ ] Get scripts
+    - [ ] Get single script
+    - [ ] Update script
+    - [ ] Delete script
+    - [ ] Create script
 - [ ] Extension Attributes
+    - [ ] Get Extenstion Attributes
+    - [ ] Get single Extenstion Attribute
+    - [ ] Update Extenstion Attribute
+    - [ ] Delete Extenstion Attribute
+    - [ ] Create Extenstion Attribute
 - [ ] Prestages
 - [ ] Inventory Preload
 - [ ] Packages
+    - [ ] Get Packages
+    - [ ] Get single Package
+    - [ ] Update Package
+    - [ ] Delete Package
+    - [ ] Create Package
 
 
 
