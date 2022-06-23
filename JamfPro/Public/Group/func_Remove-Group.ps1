@@ -23,24 +23,25 @@ function Remove-Group
         [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
         [String]$Token,
 
-
         [Parameter(Position = 2)]
         [ValidateScript({$_ -gt 0})]
         [Int]$Id,
 
-        [Parameter(Position = 3)]
-        [Switch]$Computer
+        [Parameter(Position = 2,
+            ParameterSetName='single')]
+        [Parameter(ParameterSetName='all')]
+        [ValidateSet('Computer', 'User', 'Mobile')]
+        [String]$Type
     )
 
-    $URI_PATH = "JSSResource/computergroups"
+    switch ($Type) {
+        "Computer" {$URI_PATH = "JSSResource/computergroups"}
+        "User" {$URI_PATH = "JSSResource/usergroups"}
+        "Mobile" {$URI_PATH = "JSSResource/mobiledevicegroups"}
+    }
     $URI = "$Server/$URI_PATH"
 
     $URI += "/id/$Id"
-
-    if (-not $Computer)
-    {
-        throw "A Computer Group type must be provided. Currently supported types: `"-Computer`""
-    }
 
     $headers = @{"Accept" = "application/json"
             "Authorization" = "Bearer $Token"

@@ -27,20 +27,22 @@ function Update-Group
         [ValidateScript({$_ -gt 0})]
         [Int]$Id,
 
-        [Parameter(Position = 3)]
-        [Switch]$Computer,
+        [Parameter(Position = 2,
+            ParameterSetName='single')]
+        [Parameter(ParameterSetName='all')]
+        [ValidateSet('Computer', 'User', 'Mobile')]
+        [String]$Type,
 
         [Parameter(Position = 4)]
         [PSCustomObject]$ExtensionAttribute
     )
-    $URI_PATH = "JSSResource/computergroups"
+    switch ($Type) {
+        "Computer" {$URI_PATH = "JSSResource/computergroups"}
+        "User" {$URI_PATH = "JSSResource/usergroups"}
+        "Mobile" {$URI_PATH = "JSSResource/mobiledevicegroups"}
+    }
     $URI = "$Server/$URI_PATH"
     $URI += "/id/$Id"
-
-    if (-not $Computer)
-    {
-        throw "A Computer Group type must be provided. Currently supported types: `"-Computer`""
-    }
 
     # Process XML String
     $xmlString = "<?xml version=`"1.0`" encoding=`"utf-8`"?><computer_group>"
@@ -84,5 +86,9 @@ function Update-Group
             "Authorization" = "Bearer $Token"
         }
     $response = Invoke-RestMethod $URI -Method Put -Headers $headers -ContentType 'application/xml' -Body $body
-    return $response.computer_group
+    switch ($Type) {
+        "Computer" {return $response.computer_group}
+        "User" {return $response.user_group}
+        "Mobile" {return $response.mobile_device_group}
+    }
 }

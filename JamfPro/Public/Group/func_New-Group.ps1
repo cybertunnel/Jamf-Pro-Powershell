@@ -20,9 +20,11 @@ function New-Group
         [ValidateScript({-not [String]::IsNullOrEmpty($_)})]
         [String]$Token,
 
-        [Parameter(Position = 2)]
+        [Parameter(Position = 2,
+            ParameterSetName='single')]
         [Parameter(ParameterSetName='all')]
-        [Switch]$Computer,
+        [ValidateSet('Computer', 'User', 'Mobile')]
+        [String]$Type,
         
         [Parameter(Position = 3,
             Mandatory)]
@@ -32,7 +34,7 @@ function New-Group
         [Parameter(Position = 4,
             Mandatory)]
         [ValidateSet('Smart', 'Static')]
-        [String]$Type,
+        [String]$GroupType,
         
         [Parameter(Position = 4,
             Mandatory)]
@@ -52,8 +54,11 @@ function New-Group
         [ValidateScript({$_ -is [Array]})]
         [String]$Computers
     )
-
-    $URI_PATH = "JSSResource/computerextensionattributes"
+    switch ($Type) {
+        "Computer" {$URI_PATH = "JSSResource/computergroups"}
+        "User" {$URI_PATH = "JSSResource/usergroups"}
+        "Mobile" {$URI_PATH = "JSSResource/mobiledevicegroups"}
+    }
     $URI = "$Server/$URI_PATH"
 
     # -1 is used for 

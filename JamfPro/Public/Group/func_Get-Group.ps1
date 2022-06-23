@@ -37,20 +37,20 @@ function Get-Group
         [Parameter(Position = 2,
             ParameterSetName='single')]
         [Parameter(ParameterSetName='all')]
-        [Switch]$Computer,
+        [ValidateSet('Computer', 'User', 'Mobile')]
+        [String]$Type,
 
         [Parameter(Position = 3,
             ParameterSetName='all')]
         [Switch]$All
     )
-
-    $URI_PATH = "JSSResource/computergroups"
-    $URI = "$Server/$URI_PATH"
-
-    if (-not $Computer)
-    {
-        throw "An Computer Group type flag must be provided. Supported extension attributes: `"-Computer`"."
+    
+    switch ($Type) {
+        "Computer" {$URI_PATH = "JSSResource/computergroups"}
+        "User" {$URI_PATH = "JSSResource/usergroups"}
+        "Mobile" {$URI_PATH = "JSSResource/mobiledevicegroups"}
     }
+    $URI = "$Server/$URI_PATH"
 
     if (-not $All)
     {
@@ -71,12 +71,36 @@ function Get-Group
             "Authorization" = "Bearer $Token"}
     $response = Invoke-RestMethod $URI -Method Get -Headers $headers
 
-    if ($All)
-    {
-        return $response.computer_groups
-    }
-    else
-    {
-        return $response.computer_group
+    switch ($Type) {
+        "Computer" {
+            if ($All)
+            {
+                return $response.computer_groups
+            }
+            else
+            {
+                return $response.computer_group
+            }
+        }
+        "User" {
+            if ($All)
+            {
+                return $response.user_groups
+            }
+            else
+            {
+                return $response.user_group
+            }
+        }
+        "Mobile" {
+            if ($All)
+            {
+                return $response.mobile_device_groups
+            }
+            else
+            {
+                return $response.mobile_device_group
+            }
+        }
     }
 }
