@@ -45,35 +45,34 @@ Make sure you review the [Usage](#usage) section of this README for example uses
 <!-- USAGE -->
 ## Usage
 
-### Authentication Lifecycle
+### Authentication
+```powershell
+Get-Module 'JamfPro'
 
-```Powershell
-# Gets Token
-$token = New-Token -Server "https://acme.jamfcloud.com"
+$Server = "https://acme.com"
+$Creds = Get-Credentials "apiuser"
 
-# Renew Token
-$token = Update-Token -Server "https://acme.jamfcloud.com" -Token $token.token
+$Token = New-Token -Server $Server -Credentials $Creds
+```
+### Getting Object
+```powershell
+# This is assuming the $token variable is set with a valid token.
+$Server = "https://achmo.com"
 
-# Invalidate Token
-Delete-Token -Server "https://acme.jamfcloud.com" -Token $token.token
+# All devices
+$Computers = Get-Computer -Server $Server -Token $token.token -All
+
+# Specific device
+$Computer = Get-Computer -Server $Server -Token $token.token -id 1
 ```
 
-### Departments
+### Updating Object
 
-```Powershell
-$server = "https://acme.jamfcloud.com"
+### Removing Object
 
-# Get Token
-$token = New-Token -Server $server
+### Managing Scope
 
-# Get All Departments
-Get-Department -All -Server $server -Token $token.token
-
-# Get specific department
-Get-Department -Id 12 -Server $server -Token $token.token
-
-# TODO: Add filter examplex
-```
+### Managing Criteria
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
