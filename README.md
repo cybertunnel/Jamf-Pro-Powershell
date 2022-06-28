@@ -147,8 +147,8 @@ $Computer = Get-Computer -Server $Server -Token $token.token -id 1
 ### Device Settings / Configuration
 - [ ] Devices
   - [ ] Computers
-    - [ ] Get Computers
-    - [ ] Get single computer
+    - [x] Get Computers
+    - [x] Get single computer
     - [ ] Update computer
     - [ ] Delete computer
     - [ ] Create computer
