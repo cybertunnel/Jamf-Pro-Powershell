@@ -53,7 +53,12 @@ function Get-Computer
         "LOCAL_USER_ACCOUNTS", "CERTIFICATES", "ATTACHMENTS", "PLUGINS", "PACKAGE_RECEIPTS",
         "FONTS", "SECURITY", "OPERATING_SYSTEM", "LICENSED_SOFTWARE", "IBEACONS",
         "SOFTWARE_UPDATES", "EXTENSION_ATTRIBUTES", "CONTENT_CACHING", "GROUP_MEMBERSHIPS")]
-        [Array]$Section
+        [Array]$Section,
+
+        # Used for proper threading
+        [Parameter(Position = 6,
+        ParameterSetName='all')]
+        [switch]$PageCount
     )
     $URI_PATH = "api/v1/computers-inventory"
 
@@ -107,6 +112,10 @@ function Get-Computer
             }
             
             $totalPages = [math]::Floor($totalCount/$PageSize)
+
+            if ($PageCount) {
+                return $totalPages   
+            }
             Write-Host "Processing a total of $totalPages pages..."
             Write-Host "URI: $URI"
             $jobs = (0..$totalPages) | ForEach-Object {Start-ThreadJob -ArgumentList ($URI, $Token, $_, $PageSize) -ScriptBlock {
