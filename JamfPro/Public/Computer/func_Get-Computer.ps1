@@ -118,19 +118,19 @@ function Get-Computer
             }
             Write-Host "Processing a total of $totalPages pages..."
             Write-Host "URI: $URI"
-            $jobs = (0..$totalPages) | ForEach-Object {Start-ThreadJob -ArgumentList ($URI, $Token, $_, $PageSize) -ScriptBlock {
-                param($URI, $Token, $Page, $PageSize)
-                $Headers = @{"Authorization" = "Bearer $Token"}
-                if ($URI[-1] -eq "?")
+            $computers = (0..$totalPages) | ForEach-Object -Parallel {
+                $Headers = @{"Authorization" = "Bearer $using:Token"}
+                if ($using:URI[-1] -eq "?")
                 {
-                    return Invoke-RestMethod ($URI + "page=$Page&page-size=$PageSize") -Method Get -Headers $Headers
+                    return Invoke-RestMethod ($using:URI + "page=$_&page-size=$using:PageSize") -Method Get -Headers $Headers
                 }
                 else
                 {
-                    return Invoke-RestMethod ($URI + "&page=$Page&page-size=$PageSize") -Method Get -Headers $Headers
+                    return Invoke-RestMethod ($using:URI + "&page=$_&page-size=$using:PageSize") -Method Get -Headers $Headers
                 }
-            }}
-            return $jobs | ForEach-Object {$_ | Wait-Job | Receive-Job | Select-Object -ExpandProperty results}
+                
+            }
+            return $computers | Select-Object -expandProperty results
 
         }
         else
