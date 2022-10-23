@@ -50,7 +50,7 @@ Make sure you review the [Usage](#usage) section of this README for example uses
 Get-Module 'JamfPro'
 
 $Server = "https://acme.com"
-$Creds = Get-Credentials "apiuser"
+$Creds = Get-Credential "apiuser"
 
 $Token = New-Token -Server $Server -Credentials $Creds
 ```
