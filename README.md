@@ -52,7 +52,7 @@ Get-Module 'JamfPro'
 $Server = "https://acme.com"
 $Creds = Get-Credential "apiuser"
 
-$Token = New-Token -Server $Server -Credentials $Creds
+$Token = New-Token -Server $Server -Credential $Creds
 ```
 ### Getting Object
 ```powershell
